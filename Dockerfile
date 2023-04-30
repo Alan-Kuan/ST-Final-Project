@@ -1,4 +1,4 @@
-FROM arch:latest
+FROM archlinux:latest
 
 RUN pacman -Syy
 RUN pacman -S meson ninja pkgconf yaml-cpp clang llvm base-devel
