@@ -16,13 +16,28 @@
 
 const char* help_str = "usage: translator [input.yml]";
 
+std::string value_type_str(value_type t) {
+    switch (t) {
+        case value_type::Bool:
+            return std::string("bool");
+        case value_type::Char:
+            return std::string("char");
+        case value_type::Int:
+            return std::string("int");
+        case value_type::Double:
+            return std::string("double");
+        case value_type::String:
+            return std::string("std::string");
+    }
+}
+
 void print_node(YAML::Node n, int level) {
     YAML::Node key, val;
-    std::string padding(level * 2, ' ');
     for (YAML::iterator it = n.begin(); it != n.end(); ++it) {
         key = it->first;
         val = it->second;
         std::string key_str = key.as<std::string>();
+        std::string padding(level * 2, ' ');
         std::cout << padding << key_str << ":";
         switch (val.Type()) {
             case YAML::NodeType::Map:
