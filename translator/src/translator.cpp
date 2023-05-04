@@ -18,11 +18,13 @@ const char* help_str = "usage: translator [input.yml]";
 
 void print_node(YAML::Node n, int level) {
     YAML::Node key, val;
+    std::string padding;
     for (YAML::iterator it = n.begin(); it != n.end(); ++it) {
         key = it->first;
         val = it->second;
+        padding = std::string(' ', level * 2);
         std::string key_str = key.as<std::string>();
-        printf("%*s%s:", level * 2, "", key_str.c_str());
+        std::cout << padding << key_str << ":";
         switch (val.Type()) {
             case YAML::NodeType::Map:
                 std::cout << "\n";
@@ -30,12 +32,13 @@ void print_node(YAML::Node n, int level) {
                 break;
             case YAML::NodeType::Sequence:
                 std::cout << "\n";
+                padding = std::string(' ', (level + 1) * 2);
                 for (size_t i = 0; i < val.size(); i++) {
                     printf("%*s%s[%lu]:", (level + 1) * 2, "", key_str.c_str(), i);
                     if (val[i].IsScalar()) {
                         std::cout << " " << val[i].as<std::string>() << "\n";
                     } else {
-                        printf("\n");
+                        std::cout << "\n";
                         print_node(val[i], level + 2);
                     }
                 }
