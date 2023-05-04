@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  devenv:
+    build: .
+    environment:
+      - CC=clang
+      - CXX=clang++
+    cap_add:
+      - ALL
+    ports:
+      - "22722:22"
+    volumes:
+      - .:/home/developer/project
