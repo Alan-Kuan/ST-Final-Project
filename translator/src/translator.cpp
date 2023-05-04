@@ -34,7 +34,7 @@ void print_node(YAML::Node n, int level) {
                 std::cout << "\n";
                 padding = std::string(' ', (level + 1) * 2);
                 for (size_t i = 0; i < val.size(); i++) {
-                    printf("%*s%s[%lu]:", (level + 1) * 2, "", key_str.c_str(), i);
+                    printf("%s%s[%lu]:", padding.c_str(), key_str.c_str(), i);
                     if (val[i].IsScalar()) {
                         std::cout << " " << val[i].as<std::string>() << "\n";
                     } else {
