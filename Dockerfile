@@ -4,6 +4,7 @@ ENV TINI_VERSION v0.19.0
 
 RUN pacman -Syy
 RUN pacman -S --noconfirm meson ninja pkgconf yaml-cpp clang llvm base-devel openssh
+RUN pacman -S --noconfirm git
 RUN ssh-keygen -A
 RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
 
