@@ -3,5 +3,7 @@ project('CPPBDD', 'cpp',
                      'cpp_std=c++17',
                      'buildtype=debugoptimized'])
 
+gtest = subproject('gtest')
+
 subdir('test_execution')
 subdir('translator')
