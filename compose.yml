@@ -3,6 +3,7 @@ version: '3'
 services:
   devenv:
     build: .
+    userns_mode: keep-id
     environment:
       - CC=clang
       - CXX=clang++

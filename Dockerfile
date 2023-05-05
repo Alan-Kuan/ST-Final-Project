@@ -12,9 +12,11 @@ RUN mkdir -p /usr/local/bin
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
 
-RUN useradd -m developer
+RUN groupadd -g 1000 developer
+RUN useradd --uid 1000 --gid 1000 --groups wheel,users --create-home --shell /bin/bash developer
 RUN echo 'developer:pass' | chpasswd
 
+VOLUME /home/developer/project
 EXPOSE 22
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
 CMD ["/usr/sbin/sshd", "-D"]
