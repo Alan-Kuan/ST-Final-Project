@@ -1,12 +1,17 @@
+BUILD = build
+
 .PHONY: all clean
 
 all: config build_code
 
 build_code:
-	meson compile -C build
+	meson compile -C $(BUILD)
 
 config:
-	[ ! -d "build/" ] && meson setup build || meson setup --reconfigure build
+	[ ! -d "$(BUILD)" ] && meson setup $(BUILD) || meson setup --reconfigure $(BUILD)
+
+test:
+	meson test -C $(BUILD)
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD)
