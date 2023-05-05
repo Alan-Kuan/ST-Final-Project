@@ -1,12 +1,12 @@
 .PHONY: all clean
 
-all: configure build_code
+all: config build_code
 
 build_code:
 	meson compile -C build
 
-configure:
-	[ ! -d "build/" ] && meson setup build || :
+config:
+	[ ! -d "build/" ] && meson setup build || meson setup --reconfigure build
 
 clean:
 	rm -rf build
