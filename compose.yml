@@ -2,7 +2,11 @@ version: '3'
 
 services:
   devenv:
-    build: .
+    build:
+      context: .
+      args:
+        user: ${USER}
+        pwd: ${PWD}
     userns_mode: keep-id
     environment:
       - CC=clang
@@ -12,4 +16,4 @@ services:
     ports:
       - "127.0.0.1:22722:22"
     volumes:
-      - .:/home/developer/project
+      - .:${PWD}
