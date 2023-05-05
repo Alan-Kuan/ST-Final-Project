@@ -9,6 +9,6 @@ services:
     cap_add:
       - ALL
     ports:
-      - "22722:22"
+      - "127.0.0.1:22722:22"
     volumes:
       - .:/home/developer/project
