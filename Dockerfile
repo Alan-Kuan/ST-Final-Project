@@ -15,10 +15,6 @@ RUN chmod +x /usr/local/bin/tini
 RUN useradd -m developer
 RUN echo 'developer:pass' | chpasswd
 
-USER developer
-RUN echo "export CC=clang" >> ~/.bashrc
-RUN echo "export CXX=clang++" >> ~/.bashrc
-
 EXPOSE 22
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
 CMD ["/usr/sbin/sshd", "-D"]
