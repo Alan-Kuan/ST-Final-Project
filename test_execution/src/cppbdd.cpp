@@ -1,7 +1,5 @@
 #include "cppbdd.hpp"
 
-std::vector<Scenario> scenarios;
+namespace cppbdd {
 
-void Scenario_(const std::string& fmt_str, std::function<void(void)> callback) {
-    scenarios.emplace_back(fmt_str, callback);
-}
+}  // namespace: cppbdd
