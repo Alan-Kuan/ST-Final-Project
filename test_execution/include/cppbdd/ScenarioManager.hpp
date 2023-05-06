@@ -7,8 +7,12 @@
 
 namespace cppbdd {
 
-struct Scenario {
+class Scenario {
+public:
     typedef std::function<void(void)> Callback;
+
+    Scenario(const std::string& msg, Callback callback)
+        : msg(msg), callback(callback) {}
 
     std::string msg;
     Callback callback;
@@ -20,7 +24,7 @@ public:
     bool runAll(void);
 
 private:
-    std::vector<Scenario> scenarios;
+    std::vector<Scenario> scenarios_;
 };
 
 }  // namespace: cppbdd
