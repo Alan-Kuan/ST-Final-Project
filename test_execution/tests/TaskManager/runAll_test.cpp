@@ -4,7 +4,7 @@
 TEST(TestExecutionTaskManager, runAll) {
     int a, b;
     bool res = false;
-    cppbdd::TaskManager manager;
+    cppbdd::TaskManager manager(1);
     cppbdd::CallableTask given(cppbdd::TaskName::GIVEN, "a = 0", [&](void) { a = 0; });
     cppbdd::CallableTask when(cppbdd::TaskName::WHEN, "let b = a + 1", [&](void) { b = a + 1; });
     cppbdd::CallableTask then(cppbdd::TaskName::THEN, "b = 1", [&](void) { res = (b == 1); });

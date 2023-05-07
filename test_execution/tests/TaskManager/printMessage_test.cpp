@@ -21,7 +21,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 TEST_P(TestExecutionTaskPrintMessage, printMessage) {
     auto params = GetParam();
-    cppbdd::Task task(std::get<0>(params), std::get<1>(params));
+    cppbdd::CallableTask task(std::get<0>(params), std::get<1>(params), []() {});
 
     ::testing::internal::CaptureStdout();
     task.printMessage();
