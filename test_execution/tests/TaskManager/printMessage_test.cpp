@@ -1,3 +1,4 @@
+#include "gtest/gtest.h"
 #include <gtest/gtest.h>
 #include <tuple>
 #include "cppbdd/TaskManager.hpp"
@@ -28,4 +29,21 @@ TEST_P(TestExecutionTaskPrintMessage, printMessage) {
     std::string output = ::testing::internal::GetCapturedStdout();
 
     EXPECT_EQ(output, std::get<2>(params));
+}
+
+TEST(TestExecution, printMessageFormated) {
+    cppbdd::MultiArgCallableTask<bool, char, int, double, std::string> task(
+        cppbdd::TaskName::GIVEN,
+        "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+        [](bool, char, int, double, std::string) {},
+        std::vector<cppbdd::MultiArgCallableTask<bool, char, int, double, std::string>::TestCase> {
+            cppbdd::MultiArgCallableTask<bool, char, int, double, std::string>::TestCase(true, 'x', 1, 3.14, "hi")
+        }
+    );
+
+    ::testing::internal::CaptureStdout();
+    task();
+    std::string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n");
 }
