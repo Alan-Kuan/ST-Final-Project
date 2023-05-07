@@ -10,10 +10,10 @@ TEST(TestExecutionTaskManager, addTask) {
     EXPECT_TRUE(ret);
 }
 
-TEST(TestExecutionTaskManager, addTaskMultiArgs) {
+TEST(TestExecutionTaskManager, addTaskMultiArg) {
     cppbdd::TaskManager manager(1);
 
-    cppbdd::MultiArgsCallableTask<int> task(
+    cppbdd::MultiArgCallableTask<int> task(
         cppbdd::TaskName::WHEN,
         "",
         [](int) {},

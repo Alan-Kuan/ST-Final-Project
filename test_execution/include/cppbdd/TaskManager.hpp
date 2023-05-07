@@ -51,12 +51,12 @@ private:
 };
 
 template<typename... Args>
-class MultiArgsCallableTask final : public Task {
+class MultiArgCallableTask final : public Task {
 public:
     typedef std::function<void(Args...)> Callable;
     typedef std::tuple<Args...> TestCase;
 
-    MultiArgsCallableTask(
+    MultiArgCallableTask(
         TaskName name,
         const std::string& msg,
         Callable callback,
@@ -85,8 +85,8 @@ public:
     bool addTask(CallableTask& task);
 
     template<typename... Args>
-    bool addTask(MultiArgsCallableTask<Args...>& task) {
-        tasks_.emplace_back(new MultiArgsCallableTask(task));
+    bool addTask(MultiArgCallableTask<Args...>& task) {
+        tasks_.emplace_back(new MultiArgCallableTask(task));
         return true;
     }
 
