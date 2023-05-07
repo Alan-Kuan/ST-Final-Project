@@ -8,3 +8,4 @@ test_deps = [
   thread_dep]
 
 subdir('ScenarioManager')
+subdir('TaskManager')
