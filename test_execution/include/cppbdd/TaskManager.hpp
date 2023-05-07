@@ -5,6 +5,8 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <array>
+#include <iostream>
 
 namespace cppbdd {
 
@@ -23,7 +25,8 @@ public:
         : name_(name), msg_(msg) {}
     void printMessage(void) const;
 
-private:
+protected:
+    static std::array<std::string, 5> task_names_;
     TaskName name_;
     std::string msg_;
 };
@@ -65,6 +68,7 @@ public:
 
     template<typename... Args>
     bool addTask(MultiArgsCallableTask<Args...>& task) {
+        tasks_.emplace_back(new MultiArgsCallableTask(task));
         return true;
     }
 
