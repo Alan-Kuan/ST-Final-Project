@@ -1,5 +1,6 @@
 task_manager_test_source = files(
   'printMessage_test.cpp',
+  'operator_parenthesis_test.cpp',
   'addTask_test.cpp',
   'runAll_test.cpp')
 
