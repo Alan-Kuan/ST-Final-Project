@@ -31,25 +31,43 @@ private:
 typedef std::shared_ptr<Task> TaskPtr;
 
 
-template<typename... Args>
 class CallableTask : public Task {
+public:
+    typedef std::function<void(void)>Callable;
+
+    CallableTask(TaskName name, const std::string& msg, Callable callback)
+        : Task(name, msg), callback_(callback) {}
+
+    void operator() (void) { if (callback_) callback_(); }
+
+private:
+    Callable callback_;
+};
+
+template<typename... Args>
+class MultiArgsCallableTask : public Task {
 public:
     typedef std::function<void(Args...)>Callable;
 
-    CallableTask(Callable f)
-        : f_(f) {}
+    MultiArgsCallableTask(TaskName name, const std::string& msg, Callable callback)
+        : Task(name, msg), callback_(callback) {}
 
-    void operator() (Args... args) { if (f_) f_(args...); }
+    void operator() (Args... args) { if (callback_) callback_(args...); }
 
 private:
-    Callable f_;
+    Callable callback_;
 };
 
 
 class TaskManager {
 public:
-    template<typename T>
-    bool addTask(const std::string& msg, const T& callback);
+    bool addTask(CallableTask& task);
+
+    template<typename... Args>
+    bool addTask(MultiArgsCallableTask<Args...>& task) {
+        return true;
+    }
+
     void runAll(void);
 
 private:

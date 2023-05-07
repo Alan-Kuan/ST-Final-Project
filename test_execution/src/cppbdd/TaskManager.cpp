@@ -6,8 +6,7 @@ void Task::printMessage(void) const {
 
 }
 
-template<typename T>
-bool TaskManager::addTask(const std::string& msg, const T& callback) {
+bool TaskManager::addTask(CallableTask& callback) {
     return true;
 }
 
