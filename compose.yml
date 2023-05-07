@@ -8,9 +8,6 @@ services:
         user: ${USER}
         pwd: ${PWD}
     userns_mode: keep-id
-    environment:
-      - CC=clang
-      - CXX=clang++
     cap_add:
       - ALL
     ports:

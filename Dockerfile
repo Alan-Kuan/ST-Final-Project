@@ -8,8 +8,9 @@ RUN test -n "${user}"
 RUN test -n "${pwd}"
 
 RUN pacman -Syy
-RUN pacman -S --noconfirm meson ninja pkgconf yaml-cpp clang llvm base-devel openssh
-RUN pacman -S --noconfirm git
+RUN pacman -S --noconfirm base-devel meson ninja clang llvm mold
+RUN pacman -S --noconfirm yaml-cpp
+RUN pacman -S --noconfirm git openssh
 RUN ssh-keygen -A
 RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
 
@@ -22,6 +23,10 @@ RUN useradd --uid 1000 --gid ${user} --groups wheel,users --create-home --shell 
 RUN echo "${user}:pass" | chpasswd
 
 RUN echo "cd ${pwd}" >> "/home/${user}/.bash_profile"
+RUN echo "export CC=clang" >> "/home/${user}/.bash_profile"
+RUN echo "export CXX=clang++" >> "/home/${user}/.bash_profile"
+RUN echo "export CC_LD=mold" >> "/home/${user}/.bash_profile"
+RUN echo "export CXX_LD=mold" >> "/home/${user}/.bash_profile"
 
 EXPOSE 22
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
