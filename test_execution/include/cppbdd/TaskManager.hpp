@@ -8,6 +8,7 @@
 #include <array>
 #include <tuple>
 #include <iostream>
+#include "cppbdd/format.hpp"
 
 namespace cppbdd {
 
@@ -44,7 +45,10 @@ public:
     CallableTask(TaskName name, const std::string& msg, Callable callback)
         : Task(name, msg), callback_(callback) {}
 
-    void operator() (void) override { callback_(); }
+    void operator() (void) override {
+        this->printMessage();
+        callback_();
+    }
 
 private:
     Callable callback_;
@@ -66,8 +70,17 @@ public:
         test_cases_(test_cases) {}
 
     void operator() (void) override {
-        std::apply(callback_, test_cases_[idx_++]);
+        this->printMessage(test_cases_[idx_]);
+        std::apply(callback_, test_cases_[idx_]);
+        idx_++;
         if (idx_ == test_cases_.size()) idx_ = 0;
+    }
+
+    void printMessage(const TestCase& test_case) const {
+        auto format = [&](Args... args) {
+            return dyna_format(msg_, args...);
+        };
+        std::cout << std::apply(format, test_case) << std::endl;
     }
 
 private:
