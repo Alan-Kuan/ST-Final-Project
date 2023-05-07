@@ -2,34 +2,20 @@
 #include <tuple>
 #include "cppbdd/TaskManager.hpp"
 
+typedef std::tuple<cppbdd::TaskName, std::string, std::string> Case;
+
 class TestExecutionTaskPrintMessage
-    : public ::testing::TestWithParam<std::tuple<cppbdd::TaskName, std::string, std::string>> {};
+    : public ::testing::TestWithParam<Case> {};
 
 INSTANTIATE_TEST_SUITE_P(
     AllTaskNames,
     TestExecutionTaskPrintMessage,
-    ::testing::Combine(
-        ::testing::Values(
-            cppbdd::TaskName::SCENARIO,
-            cppbdd::TaskName::GIVEN,
-            cppbdd::TaskName::WHEN,
-            cppbdd::TaskName::THEN,
-            cppbdd::TaskName::AND
-        ),
-        ::testing::Values(
-            "a scenario",
-            "a given statement",
-            "a when statement",
-            "a then statement",
-            "an and statement"
-        ),
-        ::testing::Values(
-            "Scenario: a scenario",
-            "Given a given statement",
-            "When a when statement",
-            "Then a then statement",
-            "And an and statement"
-        )
+    ::testing::Values(
+        Case(cppbdd::TaskName::SCENARIO, "a scenario", "Scenario: a scenario\n"),
+        Case(cppbdd::TaskName::GIVEN, "a given statement", "Given a given statement\n"),
+        Case(cppbdd::TaskName::WHEN, "a when statement", "When a when statement\n"),
+        Case(cppbdd::TaskName::THEN, "a then statement", "Then a then statement\n"),
+        Case(cppbdd::TaskName::AND, "an and statement", "And an and statement\n")
     )
 );
 
