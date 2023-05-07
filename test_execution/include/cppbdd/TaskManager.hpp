@@ -37,7 +37,7 @@ protected:
 typedef std::shared_ptr<Task> TaskPtr;
 
 
-class CallableTask : public Task {
+class CallableTask final : public Task {
 public:
     typedef std::function<void(void)>Callable;
 
@@ -51,7 +51,7 @@ private:
 };
 
 template<typename... Args>
-class MultiArgsCallableTask : public Task {
+class MultiArgsCallableTask final : public Task {
 public:
     typedef std::function<void(Args...)> Callable;
     typedef std::tuple<Args...> TestCase;
