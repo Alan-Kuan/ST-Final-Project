@@ -4,6 +4,11 @@ namespace cppbdd {
 
 TaskManager scenario_manager;
 
+void Title(const string& msg) {
+    cout << msg << endl;
+    cout << string(msg.length(), '-') << endl;
+}
+
 void Scenario(char* const msg, CallableTask::Callable callback) {
     auto task = new CallableTask(TaskName::SCENARIO, msg, callback);
     scenario_manager.addTask(task);

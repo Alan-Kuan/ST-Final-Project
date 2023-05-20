@@ -13,6 +13,15 @@ using namespace std;
 
 extern TaskManager scenario_manager;
 
+void Title(const string& msg);
+
+template<same_as<const char*>... Args>
+void UserStory(Args... msgs) {
+    for (const string& msg : {msgs...}) {
+        cout << msg << endl;
+    }
+}
+
 void Scenario(char* const msg, CallableTask::Callable callback);
 void Given(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
 void When(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
