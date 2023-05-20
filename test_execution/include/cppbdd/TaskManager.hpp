@@ -27,6 +27,9 @@ class Task {
 public:
     Task(TaskName name, const string& msg)
         : name_(name), msg_(msg) {}
+
+    virtual ~Task(void) = default;
+
     void printMessage(void) const;
 
     virtual void operator() (void) = 0;
