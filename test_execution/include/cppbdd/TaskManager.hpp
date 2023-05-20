@@ -28,6 +28,7 @@ public:
     void printMessage(void) const;
 
     virtual void operator() (void) = 0;
+    virtual size_t getMinReqExeTimes(void) const = 0;
 
 protected:
     static std::array<std::string, 5> task_names_;
@@ -48,6 +49,10 @@ public:
     void operator() (void) override {
         this->printMessage();
         callback_();
+    }
+
+    size_t getMinReqExeTimes(void) const override {
+        return 1;
     }
 
 private:
@@ -83,6 +88,10 @@ public:
         std::cout << std::apply(format, test_case) << std::endl;
     }
 
+    size_t getMinReqExeTimes(void) const override {
+        return test_cases_.size();
+    }
+
 private:
     Callable callback_;
     std::vector<TestCase> test_cases_;
@@ -92,9 +101,6 @@ private:
 
 class TaskManager {
 public:
-    TaskManager(size_t test_case_num)
-        : test_case_num_(test_case_num) {}
-
     bool addTask(CallableTask& task);
 
     template<typename... Args>
@@ -107,7 +113,6 @@ public:
 
 private:
     std::vector<TaskUniquePtr> tasks_;
-    size_t test_case_num_;
 };
 
 }  // namespace: cppbdd

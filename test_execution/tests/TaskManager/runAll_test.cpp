@@ -4,7 +4,7 @@
 TEST(TestExecutionTaskManager, runAll) {
     int a, b;
     bool res = false;
-    cppbdd::TaskManager manager(1);
+    cppbdd::TaskManager manager;
     cppbdd::CallableTask given(cppbdd::TaskName::GIVEN, "a = 0", [&](void) { a = 0; });
     cppbdd::CallableTask when(cppbdd::TaskName::WHEN, "let b = a + 1", [&](void) { b = a + 1; });
     cppbdd::CallableTask then(cppbdd::TaskName::THEN, "b = 1", [&](void) { res = (b == 1); });
@@ -22,7 +22,7 @@ TEST(TestExecutionTaskManager, runAll) {
 TEST(TestExecutionTaskManager, runAllMultiArg) {
     int a, b, c;
     bool res;
-    cppbdd::TaskManager manager(1);
+    cppbdd::TaskManager manager;
     cppbdd::MultiArgCallableTask<int> given(
         cppbdd::TaskName::GIVEN,
         "a = {}",

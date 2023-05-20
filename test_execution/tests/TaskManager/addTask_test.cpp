@@ -2,7 +2,7 @@
 #include "cppbdd/TaskManager.hpp"
 
 TEST(TestExecutionTaskManager, addTask) {
-    cppbdd::TaskManager manager(1);
+    cppbdd::TaskManager manager;
 
     cppbdd::CallableTask task(cppbdd::TaskName::GIVEN, "", [](void) {});
     bool ret = manager.addTask(task);
@@ -11,7 +11,7 @@ TEST(TestExecutionTaskManager, addTask) {
 }
 
 TEST(TestExecutionTaskManager, addTaskMultiArg) {
-    cppbdd::TaskManager manager(1);
+    cppbdd::TaskManager manager;
 
     cppbdd::MultiArgCallableTask<int> task(
         cppbdd::TaskName::WHEN,

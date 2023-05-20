@@ -21,8 +21,18 @@ bool TaskManager::addTask(CallableTask& task) {
 }
 
 void TaskManager::runAll(void) {
-    for (size_t i = 0 ; i < test_case_num_; i++) {
-        for (auto& task : tasks_) {
+    size_t exe_times = 1;
+    for (const auto& task : tasks_) {
+        size_t curr = task->getMinReqExeTimes();
+        // all multi-arg tasks must have the same number of test cases
+        if (curr > 1) {
+            exe_times = curr;
+            break;
+        }
+    }
+
+    for (size_t i = 0 ; i < exe_times; i++) {
+        for (const auto& task : tasks_) {
             (*task)();
         }
     }
