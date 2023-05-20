@@ -35,12 +35,12 @@ protected:
     std::string msg_;
 };
 
-typedef std::shared_ptr<Task> TaskPtr;
+typedef std::unique_ptr<Task> TaskUniquePtr;
 
 
 class CallableTask final : public Task {
 public:
-    typedef std::function<void(void)>Callable;
+    typedef std::function<void(void)> Callable;
 
     CallableTask(TaskName name, const std::string& msg, Callable callback)
         : Task(name, msg), callback_(callback) {}
@@ -85,7 +85,7 @@ public:
 
 private:
     Callable callback_;
-    std::vector<TestCase>test_cases_;
+    std::vector<TestCase> test_cases_;
     size_t idx_ = 0;
 };
 
@@ -106,7 +106,7 @@ public:
     void runAll(void);
 
 private:
-    std::vector<TaskPtr> tasks_;
+    std::vector<TaskUniquePtr> tasks_;
     size_t test_case_num_;
 };
 
