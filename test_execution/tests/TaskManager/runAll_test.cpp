@@ -5,9 +5,9 @@ TEST(TestExecutionTaskManager, runAll) {
     int a, b;
     bool res = false;
     cppbdd::TaskManager manager;
-    cppbdd::CallableTask given(cppbdd::TaskName::GIVEN, "a = 0", [&](void) { a = 0; });
-    cppbdd::CallableTask when(cppbdd::TaskName::WHEN, "let b = a + 1", [&](void) { b = a + 1; });
-    cppbdd::CallableTask then(cppbdd::TaskName::THEN, "b = 1", [&](void) { res = (b == 1); });
+    auto given = new cppbdd::CallableTask(cppbdd::TaskName::GIVEN, "a = 0", [&](void) { a = 0; });
+    auto when = new cppbdd::CallableTask(cppbdd::TaskName::WHEN, "let b = a + 1", [&](void) { b = a + 1; });
+    auto then = new cppbdd::CallableTask(cppbdd::TaskName::THEN, "b = 1", [&](void) { res = (b == 1); });
     manager.addTask(given);
     manager.addTask(when);
     manager.addTask(then);
@@ -23,7 +23,7 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
     int a, b, c;
     bool res;
     cppbdd::TaskManager manager;
-    cppbdd::MultiArgCallableTask<int> given(
+    auto given = new cppbdd::MultiArgCallableTask<int>(
         cppbdd::TaskName::GIVEN,
         "a = {}",
         [&](int x) { a = x; },
@@ -31,7 +31,7 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
             cppbdd::MultiArgCallableTask<int>::TestCase(1),
         }
     );
-    cppbdd::MultiArgCallableTask<int> and_given(
+    auto and_given = new cppbdd::MultiArgCallableTask<int>(
         cppbdd::TaskName::AND,
         "b = {}",
         [&](int x) { b = x; },
@@ -39,11 +39,11 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
             cppbdd::MultiArgCallableTask<int>::TestCase(3),
         }
     );
-    cppbdd::CallableTask when(
+    auto when = new cppbdd::CallableTask(
         cppbdd::TaskName::WHEN,
         "let c = a + b", [&](void) { c = a + b; }
     );
-    cppbdd::MultiArgCallableTask<int> then(
+    auto then = new cppbdd::MultiArgCallableTask<int>(
         cppbdd::TaskName::THEN,
         "c = {}",
         [&](int x) { res = (c == x); },

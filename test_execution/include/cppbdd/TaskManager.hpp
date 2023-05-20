@@ -101,11 +101,14 @@ private:
 
 class TaskManager {
 public:
-    bool addTask(CallableTask& task);
+    bool addTask(CallableTask* const task) {
+        tasks_.emplace_back(task);
+        return true;
+    }
 
     template<typename... Args>
-    bool addTask(MultiArgCallableTask<Args...>& task) {
-        tasks_.emplace_back(new MultiArgCallableTask(task));
+    bool addTask(MultiArgCallableTask<Args...>* const task) {
+        tasks_.emplace_back(task);
         return true;
     }
 

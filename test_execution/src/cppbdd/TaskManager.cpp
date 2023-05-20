@@ -15,11 +15,6 @@ void Task::printMessage(void) const {
     std::cout << task_names_[name_] << ' ' << msg_ << std::endl;
 }
 
-bool TaskManager::addTask(CallableTask& task) {
-    tasks_.emplace_back(new CallableTask(task));
-    return true;
-}
-
 void TaskManager::runAll(void) {
     size_t exe_times = 1;
     for (const auto& task : tasks_) {

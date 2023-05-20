@@ -4,7 +4,7 @@
 TEST(TestExecutionTaskManager, addTask) {
     cppbdd::TaskManager manager;
 
-    cppbdd::CallableTask task(cppbdd::TaskName::GIVEN, "", [](void) {});
+    auto task = new cppbdd::CallableTask(cppbdd::TaskName::GIVEN, "", [](void) {});
     bool ret = manager.addTask(task);
 
     EXPECT_TRUE(ret);
@@ -13,7 +13,7 @@ TEST(TestExecutionTaskManager, addTask) {
 TEST(TestExecutionTaskManager, addTaskMultiArg) {
     cppbdd::TaskManager manager;
 
-    cppbdd::MultiArgCallableTask<int> task(
+    auto task = new cppbdd::MultiArgCallableTask<int>(
         cppbdd::TaskName::WHEN,
         "",
         [](int) {},
