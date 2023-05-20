@@ -1,5 +1,9 @@
 #include <gtest/gtest.h>
+#include <vector>
+#include <tuple>
 #include "cppbdd/TaskManager.hpp"
+
+using namespace std;
 
 TEST(TestExecutionTaskManager, addTask) {
     cppbdd::TaskManager manager;
@@ -17,7 +21,7 @@ TEST(TestExecutionTaskManager, addTaskMultiArg) {
         cppbdd::TaskName::WHEN,
         "",
         [](int) {},
-        std::vector<std::tuple<int>> { std::tuple<int>(0) }
+        vector<tuple<int>> { tuple<int>(0) }
     );
     bool ret = manager.addTask(task);
 

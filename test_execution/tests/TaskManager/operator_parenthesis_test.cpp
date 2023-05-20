@@ -2,6 +2,8 @@
 #include <vector>
 #include "cppbdd/TaskManager.hpp"
 
+using namespace std;
+
 TEST(TestExecution, CallableTaskOperatorParenthesis) {
     int a = 0;
     cppbdd::CallableTask task(cppbdd::TaskName::SCENARIO, "", [&]() { a = 1; });
@@ -12,12 +14,12 @@ TEST(TestExecution, CallableTaskOperatorParenthesis) {
 }
 
 TEST(TestExecution, MultiArgCallableTaskOperatorParenthesis) {
-    std::vector<int> a;
+    vector<int> a;
     cppbdd::MultiArgCallableTask<int>task(
         cppbdd::TaskName::GIVEN,
         "a = {}",
         [&](int x) { a.push_back(x); },
-        std::vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
+        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
             cppbdd::MultiArgCallableTask<int>::TestCase(1),
             cppbdd::MultiArgCallableTask<int>::TestCase(2),
         }

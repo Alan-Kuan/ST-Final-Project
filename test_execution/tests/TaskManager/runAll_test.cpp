@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
+#include <vector>
 #include "cppbdd/TaskManager.hpp"
+
+using namespace std;
 
 TEST(TestExecutionTaskManager, runAll) {
     int a, b;
@@ -27,7 +30,7 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
         cppbdd::TaskName::GIVEN,
         "a = {}",
         [&](int x) { a = x; },
-        std::vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
+        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
             cppbdd::MultiArgCallableTask<int>::TestCase(1),
         }
     );
@@ -35,7 +38,7 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
         cppbdd::TaskName::AND,
         "b = {}",
         [&](int x) { b = x; },
-        std::vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
+        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
             cppbdd::MultiArgCallableTask<int>::TestCase(3),
         }
     );
@@ -47,7 +50,7 @@ TEST(TestExecutionTaskManager, runAllMultiArg) {
         cppbdd::TaskName::THEN,
         "c = {}",
         [&](int x) { res = (c == x); },
-        std::vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
+        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
             cppbdd::MultiArgCallableTask<int>::TestCase(4),
         }
     );

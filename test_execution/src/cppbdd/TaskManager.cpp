@@ -3,7 +3,7 @@
 
 namespace cppbdd {
 
-std::array<std::string, 5> Task::task_names_({
+array<string, 5> Task::task_names_({
     "Scenario:",
     "Given",
     "When",
@@ -12,7 +12,7 @@ std::array<std::string, 5> Task::task_names_({
 });
 
 void Task::printMessage(void) const {
-    std::cout << task_names_[name_] << ' ' << msg_ << std::endl;
+    cout << task_names_[name_] << ' ' << msg_ << endl;
 }
 
 void TaskManager::runAll(void) {

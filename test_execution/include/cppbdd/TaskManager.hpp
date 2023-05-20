@@ -12,6 +12,8 @@
 
 namespace cppbdd {
 
+using namespace std;
+
 enum TaskName {
     SCENARIO,
     GIVEN,
@@ -23,7 +25,7 @@ enum TaskName {
 
 class Task {
 public:
-    Task(TaskName name, const std::string& msg)
+    Task(TaskName name, const string& msg)
         : name_(name), msg_(msg) {}
     void printMessage(void) const;
 
@@ -31,19 +33,19 @@ public:
     virtual size_t getMinReqExeTimes(void) const = 0;
 
 protected:
-    static std::array<std::string, 5> task_names_;
+    static array<string, 5> task_names_;
     TaskName name_;
-    std::string msg_;
+    string msg_;
 };
 
-typedef std::unique_ptr<Task> TaskUniquePtr;
+typedef unique_ptr<Task> TaskUniquePtr;
 
 
 class CallableTask final : public Task {
 public:
-    typedef std::function<void(void)> Callable;
+    typedef function<void(void)> Callable;
 
-    CallableTask(TaskName name, const std::string& msg, Callable callback)
+    CallableTask(TaskName name, const string& msg, Callable callback)
         : Task(name, msg), callback_(callback) {}
 
     void operator() (void) override {
@@ -62,21 +64,21 @@ private:
 template<typename... Args>
 class MultiArgCallableTask final : public Task {
 public:
-    typedef std::function<void(Args...)> Callable;
-    typedef std::tuple<Args...> TestCase;
+    typedef function<void(Args...)> Callable;
+    typedef tuple<Args...> TestCase;
 
     MultiArgCallableTask(
         TaskName name,
-        const std::string& msg,
+        const string& msg,
         Callable callback,
-        const std::vector<TestCase>& test_cases
+        const vector<TestCase>& test_cases
     ) : Task(name, msg),
         callback_(callback),
         test_cases_(test_cases) {}
 
     void operator() (void) override {
         this->printMessage(test_cases_[idx_]);
-        std::apply(callback_, test_cases_[idx_]);
+        apply(callback_, test_cases_[idx_]);
         idx_++;
         if (idx_ == test_cases_.size()) idx_ = 0;
     }
@@ -85,7 +87,7 @@ public:
         auto format = [&](Args... args) {
             return dyna_format(msg_, args...);
         };
-        std::cout << std::apply(format, test_case) << std::endl;
+        cout << apply(format, test_case) << endl;
     }
 
     size_t getMinReqExeTimes(void) const override {
@@ -94,7 +96,7 @@ public:
 
 private:
     Callable callback_;
-    std::vector<TestCase> test_cases_;
+    vector<TestCase> test_cases_;
     size_t idx_ = 0;
 };
 
@@ -115,7 +117,7 @@ public:
     void runAll(void);
 
 private:
-    std::vector<TaskUniquePtr> tasks_;
+    vector<TaskUniquePtr> tasks_;
 };
 
 }  // namespace: cppbdd
