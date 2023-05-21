@@ -22,15 +22,15 @@ void UserStory(Args... msgs) {
     }
 }
 
-void Scenario(char* const msg, CallableTask::Callable callback);
-void Given(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void When(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void Then(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void And(char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
+void Scenario(const char* const msg, CallableTask::Callable callback);
+void Given(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
+void When(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
+void Then(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
+void And(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
 
 template<typename... Args>
 void Given(
-    char* const msg,
+    const char* const msg,
     typename MultiArgCallableTask<Args...>::Callable callback,
     const vector<tuple<Args...>>& test_cases,
     TaskManager& stmt_manager
@@ -41,7 +41,7 @@ void Given(
 
 template<typename... Args>
 void When(
-    char* const msg,
+    const char* const msg,
     typename MultiArgCallableTask<Args...>::Callable callback,
     const vector<tuple<Args...>>& test_cases,
     TaskManager& stmt_manager
@@ -52,7 +52,7 @@ void When(
 
 template<typename... Args>
 void Then(
-    char* const msg,
+    const char* const msg,
     typename MultiArgCallableTask<Args...>::Callable callback,
     const vector<tuple<Args...>>& test_cases,
     TaskManager& stmt_manager
@@ -63,7 +63,7 @@ void Then(
 
 template<typename... Args>
 void And(
-    char* const msg,
+    const char* const msg,
     typename MultiArgCallableTask<Args...>::Callable callback,
     const vector<tuple<Args...>>& test_cases,
     TaskManager& stmt_manager
