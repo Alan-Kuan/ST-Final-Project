@@ -3,3 +3,5 @@ build/
 
 subprojects/*
 !subprojects/*.wrap
+
+examples/linked_list_test
