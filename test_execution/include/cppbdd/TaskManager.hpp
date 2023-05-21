@@ -87,10 +87,11 @@ public:
     }
 
     void printMessage(const TestCase& test_case) const {
+        if (name_ == TaskName::SCENARIO) cout << endl;
+        cout << task_names_[name_] << ' ';
         auto format = [&](Args... args) {
             return dyna_format(msg_, args...);
         };
-        cout << task_names_[name_] << ' ';
         cout << apply(format, test_case) << endl;
     }
 

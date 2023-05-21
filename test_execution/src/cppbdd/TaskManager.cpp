@@ -12,6 +12,7 @@ array<string, 5> Task::task_names_({
 });
 
 void Task::printMessage(void) const {
+    if (name_ == TaskName::SCENARIO) cout << endl;
     cout << task_names_[name_] << ' ' << msg_ << endl;
 }
 

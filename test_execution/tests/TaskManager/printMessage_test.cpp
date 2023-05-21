@@ -15,7 +15,7 @@ INSTANTIATE_TEST_SUITE_P(
     AllTaskNames,
     TestExecutionTaskPrintMessage,
     ::testing::Values(
-        Case(cppbdd::TaskName::SCENARIO, "a scenario", "Scenario: a scenario\n"),
+        Case(cppbdd::TaskName::SCENARIO, "a scenario", "\nScenario: a scenario\n"),
         Case(cppbdd::TaskName::GIVEN, "a given statement", "Given a given statement\n"),
         Case(cppbdd::TaskName::WHEN, "a when statement", "When a when statement\n"),
         Case(cppbdd::TaskName::THEN, "a then statement", "Then a then statement\n"),
@@ -50,7 +50,7 @@ INSTANTIATE_TEST_SUITE_P(
             cppbdd::TaskName::SCENARIO,
             "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
             tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
-            "Scenario: a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
+            "\nScenario: a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
         ),
         CaseWithArgs(
             cppbdd::TaskName::GIVEN,
