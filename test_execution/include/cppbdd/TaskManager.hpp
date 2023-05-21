@@ -87,8 +87,22 @@ public:
     }
 
     void printMessage(const TestCase& test_case) const {
-        if (name_ == TaskName::SCENARIO) cout << endl;
+        switch (name_) {
+        case TaskName::SCENARIO:
+            cout << endl;
+            break;
+        case TaskName::GIVEN:
+            cout << endl;
+            // fallthrough
+        case TaskName::WHEN:
+        case TaskName::THEN:
+        case TaskName::AND:
+            cout << "  ";
+            break;
+        }
+
         cout << task_names_[name_] << ' ';
+
         auto format = [&](Args... args) {
             return dyna_format(msg_, args...);
         };

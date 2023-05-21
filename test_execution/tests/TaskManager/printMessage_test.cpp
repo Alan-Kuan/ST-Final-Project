@@ -16,10 +16,10 @@ INSTANTIATE_TEST_SUITE_P(
     TestExecutionTaskPrintMessage,
     ::testing::Values(
         Case(cppbdd::TaskName::SCENARIO, "a scenario", "\nScenario: a scenario\n"),
-        Case(cppbdd::TaskName::GIVEN, "a given statement", "Given a given statement\n"),
-        Case(cppbdd::TaskName::WHEN, "a when statement", "When a when statement\n"),
-        Case(cppbdd::TaskName::THEN, "a then statement", "Then a then statement\n"),
-        Case(cppbdd::TaskName::AND, "an and statement", "And an and statement\n")
+        Case(cppbdd::TaskName::GIVEN, "a given statement", "\n  Given a given statement\n"),
+        Case(cppbdd::TaskName::WHEN, "a when statement", "  When a when statement\n"),
+        Case(cppbdd::TaskName::THEN, "a then statement", "  Then a then statement\n"),
+        Case(cppbdd::TaskName::AND, "an and statement", "  And an and statement\n")
     )
 );
 
@@ -56,25 +56,25 @@ INSTANTIATE_TEST_SUITE_P(
             cppbdd::TaskName::GIVEN,
             "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
             tuple<bool, char, int, double, string>(false, 'y', 0, 3.14, "hi"),
-            "Given a = false, b = 'y', c = 0, d = 3.14, e = \"hi\"\n"
+            "\n  Given a = false, b = 'y', c = 0, d = 3.14, e = \"hi\"\n"
         ),
         CaseWithArgs(
             cppbdd::TaskName::WHEN,
             "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
             tuple<bool, char, int, double, string>(true, 'x', -1, 3.0, "hi"),
-            "When a = true, b = 'x', c = -1, d = 3, e = \"hi\"\n"
+            "  When a = true, b = 'x', c = -1, d = 3, e = \"hi\"\n"
         ),
         CaseWithArgs(
             cppbdd::TaskName::THEN,
             "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
             tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, ""),
-            "Then a = true, b = 'x', c = 1, d = 3.14, e = \"\"\n"
+            "  Then a = true, b = 'x', c = 1, d = 3.14, e = \"\"\n"
         ),
         CaseWithArgs(
             cppbdd::TaskName::AND,
             "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
             tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
-            "And a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
+            "  And a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
         )
     )
 );
