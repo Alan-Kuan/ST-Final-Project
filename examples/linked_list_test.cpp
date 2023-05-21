@@ -28,10 +28,7 @@ void init(void) {
 
         Given("an int linked list with length {}", [&](int x) {
                 l.clear();
-                while (x > 0) {
-                    l.push_back(0);
-                    x--;
-                }
+                while (x--) l.push_back(0);
             },
             vector<tuple<int>> {
                 tuple<int>(1),
@@ -65,6 +62,37 @@ void init(void) {
             vector<tuple<int>> {
                 tuple<int>(5),
                 tuple<int>(-1)
+            },
+            stmt_manager);
+
+        stmt_manager.runAll();
+    });
+
+    Scenario("Attempting to pop elements from a linked list should decrease its length", [](void) {
+        cppbdd::TaskManager stmt_manager;
+        list<int> l;
+
+        Given("an int linked list with legnth {}", [&](int x) {
+                l.clear();
+                while (x--) l.push_back(0);
+            },
+            vector<tuple<int>> {
+                tuple<int>(1)
+            },
+            stmt_manager);
+
+        When("attempting to pop the last element of the list", [&](void) {
+                l.pop_back();
+            },
+            stmt_manager);
+
+        Then("the length of it should be {}", [&](int x) {
+                int len = 0;
+                for (auto it = l.begin(); it != l.end(); it++, len++);
+                assert(len == x);
+            },
+            vector<tuple<int>> {
+                tuple<int>(0)
             },
             stmt_manager);
 
