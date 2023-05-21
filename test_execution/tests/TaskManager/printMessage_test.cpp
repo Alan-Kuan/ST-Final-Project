@@ -34,13 +34,59 @@ TEST_P(TestExecutionTaskPrintMessage, printMessage) {
     EXPECT_EQ(output, get<2>(params));
 }
 
-TEST(TestExecution, printMessageFormated) {
+typedef tuple<cppbdd::TaskName,
+              string,
+              tuple<bool, char, int, double, string>,
+              string> CaseWithArgs;
+
+class TestExecutionTaskPrintMessageFormatted
+    : public ::testing::TestWithParam<CaseWithArgs> {};
+
+INSTANTIATE_TEST_SUITE_P(
+    AllTaskNamesWithArgs,
+    TestExecutionTaskPrintMessageFormatted,
+    ::testing::Values(
+        CaseWithArgs(
+            cppbdd::TaskName::SCENARIO,
+            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
+            "Scenario: a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
+        ),
+        CaseWithArgs(
+            cppbdd::TaskName::GIVEN,
+            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+            tuple<bool, char, int, double, string>(false, 'y', 0, 3.14, "hi"),
+            "Given a = false, b = 'y', c = 0, d = 3.14, e = \"hi\"\n"
+        ),
+        CaseWithArgs(
+            cppbdd::TaskName::WHEN,
+            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+            tuple<bool, char, int, double, string>(true, 'x', -1, 3.0, "hi"),
+            "When a = true, b = 'x', c = -1, d = 3, e = \"hi\"\n"
+        ),
+        CaseWithArgs(
+            cppbdd::TaskName::THEN,
+            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, ""),
+            "Then a = true, b = 'x', c = 1, d = 3.14, e = \"\"\n"
+        ),
+        CaseWithArgs(
+            cppbdd::TaskName::AND,
+            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
+            "And a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
+        )
+    )
+);
+
+TEST_P(TestExecutionTaskPrintMessageFormatted, printMessageFormatted) {
+    auto params = GetParam();
     cppbdd::MultiArgCallableTask<bool, char, int, double, string> task(
-        cppbdd::TaskName::GIVEN,
-        "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
+        get<0>(params),
+        get<1>(params),
         [](bool, char, int, double, string) {},
         vector<cppbdd::MultiArgCallableTask<bool, char, int, double, string>::TestCase> {
-            cppbdd::MultiArgCallableTask<bool, char, int, double, string>::TestCase(true, 'x', 1, 3.14, "hi")
+            get<2>(params)
         }
     );
 
@@ -48,5 +94,5 @@ TEST(TestExecution, printMessageFormated) {
     task();
     string output = ::testing::internal::GetCapturedStdout();
 
-    EXPECT_EQ(output, "a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n");
+    EXPECT_EQ(output, get<3>(params));
 }

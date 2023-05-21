@@ -90,6 +90,7 @@ public:
         auto format = [&](Args... args) {
             return dyna_format(msg_, args...);
         };
+        cout << task_names_[name_] << ' ';
         cout << apply(format, test_case) << endl;
     }
 
