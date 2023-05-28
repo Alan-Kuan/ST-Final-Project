@@ -6,12 +6,13 @@
 #include <functional>
 
 #include "cppbdd/TaskManager.hpp"
+#include "cppbdd/ScenarioManager.hpp"
 
 namespace cppbdd {
 
 using namespace std;
 
-extern TaskManager scenario_manager;
+extern ScenarioManager SCENARIO_MANAGER;
 
 void Title(const string& msg);
 
@@ -22,54 +23,50 @@ void UserStory(Args... msgs) {
     }
 }
 
-void Scenario(const char* const msg, CallableTask::Callable callback);
-void Given(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void When(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void Then(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
-void And(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
+void Scenario(const char* const msg, ScenarioTask::Callable callback);
+void Given(const char* const msg, CallableTask::Callable callback);
+void When(const char* const msg, CallableTask::Callable callback);
+void Then(const char* const msg, CallableTask::Callable callback);
+void And(const char* const msg, CallableTask::Callable callback);
 
 template<typename T>
 void Given(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases,
-    TaskManager& stmt_manager
+    const vector<T>& test_cases
 ) {
     auto task = new SingleArgCallableTask<T>(TaskName::GIVEN, msg, callback, test_cases);
-    stmt_manager.addTask(task);
+    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void When(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases,
-    TaskManager& stmt_manager
+    const vector<T>& test_cases
 ) {
     auto task = new SingleArgCallableTask<T>(TaskName::WHEN, msg, callback, test_cases);
-    stmt_manager.addTask(task);
+    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void Then(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases,
-    TaskManager& stmt_manager
+    const vector<T>& test_cases
 ) {
     auto task = new SingleArgCallableTask<T>(TaskName::THEN, msg, callback, test_cases);
-    stmt_manager.addTask(task);
+    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void And(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases,
-    TaskManager& stmt_manager
+    const vector<T>& test_cases
 ) {
     auto task = new SingleArgCallableTask<T>(TaskName::AND, msg, callback, test_cases);
-    stmt_manager.addTask(task);
+    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
 }
 
 void runTests(void);

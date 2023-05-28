@@ -8,6 +8,7 @@
 #include <array>
 #include <tuple>
 #include <iostream>
+#include <any>
 #include "cppbdd/format.hpp"
 
 namespace cppbdd {
@@ -34,6 +35,8 @@ public:
 
     virtual void operator() (void) = 0;
     virtual size_t getMinReqExeTimes(void) const = 0;
+
+    friend class TaskManager;
 
 protected:
     static array<string, 5> task_names_;
@@ -128,9 +131,10 @@ public:
         return true;
     }
 
+    void clear(void);
     void runAll(void);
 
-private:
+protected:
     vector<TaskUniquePtr> tasks_;
 };
 

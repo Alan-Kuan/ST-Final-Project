@@ -22,81 +22,59 @@ void init(void) {
               "I want to insert and pop elements from the linked list properly,",
               "so that I can ensure the quality of my program.");
 
-    Scenario("Inserting new element at the end of the list should increase the length of the list", [](void) {
-        cppbdd::TaskManager stmt_manager;
-        list<int> l;
+    Scenario("Inserting new element at the end of the list should increase the length of the list",
+             [](cppbdd::ScenarioTask::Context& context) {
 
         Given("an int linked list with length {}", [&](int x) {
-                l.clear();
+                list<int> l;
                 while (x--) l.push_back(0);
+                context["list"] = l;
             },
-            vector<tuple<int>> {
-                tuple<int>(1),
-                tuple<int>(0)
-            },
-            stmt_manager);
+            vector<int> {1, 0});
 
         When("inserting {} at the end of the list", [&](int x) {
+                auto& l = any_cast<list<int>&>(context["list"]);
                 l.push_back(x);
             },
-            vector<tuple<int>> {
-               tuple<int>(5),
-               tuple<int>(-1)
-            },
-            stmt_manager);
+            vector<int> {5, -1});
 
         Then("the length of it should be {}", [&](int x) {
+                auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
                 assert(len == x);
             },
-            vector<tuple<int>> {
-               tuple<int>(2),
-               tuple<int>(1)
-            },
-            stmt_manager);
+            vector<int> {2, 1});
 
         And("the last element of it should be {}", [&](int x) {
+                auto& l = any_cast<list<int>&>(context["list"]);
                 assert(*l.rbegin() == x);
             },
-            vector<tuple<int>> {
-                tuple<int>(5),
-                tuple<int>(-1)
-            },
-            stmt_manager);
-
-        stmt_manager.runAll();
+            vector<int> {5, -1});
     });
 
-    Scenario("Attempting to pop elements from a linked list should decrease its length", [](void) {
-        cppbdd::TaskManager stmt_manager;
-        list<int> l;
+    Scenario("Attempting to pop elements from a linked list should decrease its length",
+             [](cppbdd::ScenarioTask::Context& context) {
 
         Given("an int linked list with legnth {}", [&](int x) {
-                l.clear();
+                list<int> l;
                 while (x--) l.push_back(0);
+                context["list"] = l;
             },
-            vector<tuple<int>> {
-                tuple<int>(1)
-            },
-            stmt_manager);
+            vector<int> {1});
 
         When("attempting to pop the last element of the list", [&](void) {
+                auto& l = any_cast<list<int>&>(context["list"]);
                 l.pop_back();
-            },
-            stmt_manager);
+            });
 
         Then("the length of it should be {}", [&](int x) {
+                auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
                 assert(len == x);
             },
-            vector<tuple<int>> {
-                tuple<int>(0)
-            },
-            stmt_manager);
-
-        stmt_manager.runAll();
+            vector<int> {0});
     });
 }
 

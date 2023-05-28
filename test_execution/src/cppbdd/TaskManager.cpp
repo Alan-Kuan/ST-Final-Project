@@ -1,5 +1,4 @@
 #include "cppbdd/TaskManager.hpp"
-#include <iostream>
 
 namespace cppbdd {
 
@@ -26,6 +25,10 @@ void Task::printMessage(void) const {
         break;
     }
     cout << task_names_[name_] << ' ' << msg_ << endl;
+}
+
+void TaskManager::clear() {
+    tasks_.clear();
 }
 
 void TaskManager::runAll(void) {
