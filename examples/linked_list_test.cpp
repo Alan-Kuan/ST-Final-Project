@@ -6,6 +6,8 @@
 
 #include <list>
 
+typedef cppbdd::ScenarioTask::Context Context;
+
 using cppbdd::Title;
 using cppbdd::UserStory;
 using cppbdd::Scenario;
@@ -23,7 +25,7 @@ void init(void) {
               "so that I can ensure the quality of my program.");
 
     Scenario("Inserting new element at the end of the list should increase the length of the list",
-             [](cppbdd::ScenarioTask::Context& context) {
+             [](Context& context) {
 
         Given("an int linked list with length {}", [&](int x) {
                 list<int> l;
@@ -54,7 +56,7 @@ void init(void) {
     });
 
     Scenario("Attempting to pop elements from a linked list should decrease its length",
-             [](cppbdd::ScenarioTask::Context& context) {
+             [](Context& context) {
 
         Given("an int linked list with legnth {}", [&](int x) {
                 list<int> l;
