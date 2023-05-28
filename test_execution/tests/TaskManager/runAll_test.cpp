@@ -22,37 +22,31 @@ TEST(TestExecutionTaskManager, runAll) {
     EXPECT_TRUE(res);
 }
 
-TEST(TestExecutionTaskManager, runAllMultiArg) {
+TEST(TestExecutionTaskManager, runAllSingleArg) {
     int a, b, c;
     bool res;
     cppbdd::TaskManager manager;
-    auto given = new cppbdd::MultiArgCallableTask<int>(
+    auto given = new cppbdd::SingleArgCallableTask<int>(
         cppbdd::TaskName::GIVEN,
         "a = {}",
         [&](int x) { a = x; },
-        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
-            cppbdd::MultiArgCallableTask<int>::TestCase(1),
-        }
+        vector<int> {1}
     );
-    auto and_given = new cppbdd::MultiArgCallableTask<int>(
+    auto and_given = new cppbdd::SingleArgCallableTask<int>(
         cppbdd::TaskName::AND,
         "b = {}",
         [&](int x) { b = x; },
-        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
-            cppbdd::MultiArgCallableTask<int>::TestCase(3),
-        }
+        vector<int> {3}
     );
     auto when = new cppbdd::CallableTask(
         cppbdd::TaskName::WHEN,
         "let c = a + b", [&](void) { c = a + b; }
     );
-    auto then = new cppbdd::MultiArgCallableTask<int>(
+    auto then = new cppbdd::SingleArgCallableTask<int>(
         cppbdd::TaskName::THEN,
         "c = {}",
         [&](int x) { res = (c == x); },
-        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
-            cppbdd::MultiArgCallableTask<int>::TestCase(4),
-        }
+        vector<int> {4}
     );
     manager.addTask(given);
     manager.addTask(and_given);

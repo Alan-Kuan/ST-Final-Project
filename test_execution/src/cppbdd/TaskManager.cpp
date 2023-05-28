@@ -18,7 +18,7 @@ void Task::printMessage(void) const {
         break;
     case TaskName::GIVEN:
         cout << endl;
-        // fallthrough
+        // fall through
     case TaskName::WHEN:
     case TaskName::THEN:
     case TaskName::AND:

@@ -17,11 +17,11 @@ TEST(TestExecutionTaskManager, addTask) {
 TEST(TestExecutionTaskManager, addTaskMultiArg) {
     cppbdd::TaskManager manager;
 
-    auto task = new cppbdd::MultiArgCallableTask<int>(
+    auto task = new cppbdd::SingleArgCallableTask<int>(
         cppbdd::TaskName::WHEN,
         "",
         [](int) {},
-        vector<tuple<int>> { tuple<int>(0) }
+        vector<int> { 0 }
     );
     bool ret = manager.addTask(task);
 

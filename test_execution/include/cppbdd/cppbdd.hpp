@@ -28,47 +28,47 @@ void When(const char* const msg, CallableTask::Callable callback, TaskManager& s
 void Then(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
 void And(const char* const msg, CallableTask::Callable callback, TaskManager& stmt_manager);
 
-template<typename... Args>
+template<typename T>
 void Given(
     const char* const msg,
-    typename MultiArgCallableTask<Args...>::Callable callback,
-    const vector<tuple<Args...>>& test_cases,
+    typename SingleArgCallableTask<T>::Callable callback,
+    const vector<T>& test_cases,
     TaskManager& stmt_manager
 ) {
-    auto task = new MultiArgCallableTask<Args...>(TaskName::GIVEN, msg, callback, test_cases);
+    auto task = new SingleArgCallableTask<T>(TaskName::GIVEN, msg, callback, test_cases);
     stmt_manager.addTask(task);
 }
 
-template<typename... Args>
+template<typename T>
 void When(
     const char* const msg,
-    typename MultiArgCallableTask<Args...>::Callable callback,
-    const vector<tuple<Args...>>& test_cases,
+    typename SingleArgCallableTask<T>::Callable callback,
+    const vector<T>& test_cases,
     TaskManager& stmt_manager
 ) {
-    auto task = new MultiArgCallableTask<Args...>(TaskName::WHEN, msg, callback, test_cases);
+    auto task = new SingleArgCallableTask<T>(TaskName::WHEN, msg, callback, test_cases);
     stmt_manager.addTask(task);
 }
 
-template<typename... Args>
+template<typename T>
 void Then(
     const char* const msg,
-    typename MultiArgCallableTask<Args...>::Callable callback,
-    const vector<tuple<Args...>>& test_cases,
+    typename SingleArgCallableTask<T>::Callable callback,
+    const vector<T>& test_cases,
     TaskManager& stmt_manager
 ) {
-    auto task = new MultiArgCallableTask<Args...>(TaskName::THEN, msg, callback, test_cases);
+    auto task = new SingleArgCallableTask<T>(TaskName::THEN, msg, callback, test_cases);
     stmt_manager.addTask(task);
 }
 
-template<typename... Args>
+template<typename T>
 void And(
     const char* const msg,
-    typename MultiArgCallableTask<Args...>::Callable callback,
-    const vector<tuple<Args...>>& test_cases,
+    typename SingleArgCallableTask<T>::Callable callback,
+    const vector<T>& test_cases,
     TaskManager& stmt_manager
 ) {
-    auto task = new MultiArgCallableTask<Args...>(TaskName::AND, msg, callback, test_cases);
+    auto task = new SingleArgCallableTask<T>(TaskName::AND, msg, callback, test_cases);
     stmt_manager.addTask(task);
 }
 

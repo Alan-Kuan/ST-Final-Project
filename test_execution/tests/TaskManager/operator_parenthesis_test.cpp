@@ -15,14 +15,11 @@ TEST(TestExecution, CallableTaskOperatorParenthesis) {
 
 TEST(TestExecution, MultiArgCallableTaskOperatorParenthesis) {
     vector<int> a;
-    cppbdd::MultiArgCallableTask<int>task(
+    cppbdd::SingleArgCallableTask<int>task(
         cppbdd::TaskName::GIVEN,
         "a = {}",
         [&](int x) { a.push_back(x); },
-        vector<cppbdd::MultiArgCallableTask<int>::TestCase> {
-            cppbdd::MultiArgCallableTask<int>::TestCase(1),
-            cppbdd::MultiArgCallableTask<int>::TestCase(2),
-        }
+        vector<int> {1, 2}
     );
 
     task();

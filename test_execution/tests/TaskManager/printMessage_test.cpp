@@ -2,6 +2,7 @@
 #include <tuple>
 #include <vector>
 #include <string>
+#include <variant>
 #include "cppbdd/TaskManager.hpp"
 
 using namespace std;
@@ -34,65 +35,77 @@ TEST_P(TestExecutionTaskPrintMessage, printMessage) {
     EXPECT_EQ(output, get<2>(params));
 }
 
-typedef tuple<cppbdd::TaskName,
-              string,
-              tuple<bool, char, int, double, string>,
-              string> CaseWithArgs;
-
-class TestExecutionTaskPrintMessageFormatted
-    : public ::testing::TestWithParam<CaseWithArgs> {};
-
-INSTANTIATE_TEST_SUITE_P(
-    AllTaskNamesWithArgs,
-    TestExecutionTaskPrintMessageFormatted,
-    ::testing::Values(
-        CaseWithArgs(
-            cppbdd::TaskName::SCENARIO,
-            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
-            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
-            "\nScenario: a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
-        ),
-        CaseWithArgs(
-            cppbdd::TaskName::GIVEN,
-            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
-            tuple<bool, char, int, double, string>(false, 'y', 0, 3.14, "hi"),
-            "\n  Given a = false, b = 'y', c = 0, d = 3.14, e = \"hi\"\n"
-        ),
-        CaseWithArgs(
-            cppbdd::TaskName::WHEN,
-            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
-            tuple<bool, char, int, double, string>(true, 'x', -1, 3.0, "hi"),
-            "  When a = true, b = 'x', c = -1, d = 3, e = \"hi\"\n"
-        ),
-        CaseWithArgs(
-            cppbdd::TaskName::THEN,
-            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
-            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, ""),
-            "  Then a = true, b = 'x', c = 1, d = 3.14, e = \"\"\n"
-        ),
-        CaseWithArgs(
-            cppbdd::TaskName::AND,
-            "a = {}, b = '{}', c = {}, d = {}, e = \"{}\"",
-            tuple<bool, char, int, double, string>(true, 'x', 1, 3.14, "hi"),
-            "  And a = true, b = 'x', c = 1, d = 3.14, e = \"hi\"\n"
-        )
-    )
-);
-
-TEST_P(TestExecutionTaskPrintMessageFormatted, printMessageFormatted) {
-    auto params = GetParam();
-    cppbdd::MultiArgCallableTask<bool, char, int, double, string> task(
-        get<0>(params),
-        get<1>(params),
-        [](bool, char, int, double, string) {},
-        vector<cppbdd::MultiArgCallableTask<bool, char, int, double, string>::TestCase> {
-            get<2>(params)
-        }
+TEST(TestExecution, printMessageFormattedBool) {
+    cppbdd::SingleArgCallableTask<bool> task(
+        cppbdd::TaskName::SCENARIO,
+        "a = {}",
+        [](bool) {},
+        vector<bool> {true}
     );
 
     ::testing::internal::CaptureStdout();
     task();
     string output = ::testing::internal::GetCapturedStdout();
 
-    EXPECT_EQ(output, get<3>(params));
+    EXPECT_EQ(output, "\nScenario: a = true\n");
+}
+
+TEST(TestExecution, printMessageFormattedChar) {
+    cppbdd::SingleArgCallableTask<char> task(
+        cppbdd::TaskName::GIVEN,
+        "b = '{}'",
+        [](char) {},
+        vector<char> {'x'}
+    );
+
+    ::testing::internal::CaptureStdout();
+    task();
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "\n  Given b = 'x'\n");
+}
+
+TEST(TestExecution, printMessageFormattedInt) {
+    cppbdd::SingleArgCallableTask<int> task(
+        cppbdd::TaskName::WHEN,
+        "c = {}",
+        [](int) {},
+        vector<int> {1}
+    );
+
+    ::testing::internal::CaptureStdout();
+    task();
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  When c = 1\n");
+}
+
+TEST(TestExecution, printMessageFormattedDouble) {
+    cppbdd::SingleArgCallableTask<double> task(
+        cppbdd::TaskName::THEN,
+        "d = {}",
+        [](double) {},
+        vector<double> {3.14}
+    );
+
+    ::testing::internal::CaptureStdout();
+    task();
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  Then d = 3.14\n");
+}
+
+TEST(TestExecution, printMessageFormattedString) {
+    cppbdd::SingleArgCallableTask<string> task(
+        cppbdd::TaskName::AND,
+        "e = \"{}\"",
+        [](string) {},
+        vector<string> {"hi"}
+    );
+
+    ::testing::internal::CaptureStdout();
+    task();
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  And e = \"hi\"\n");
 }

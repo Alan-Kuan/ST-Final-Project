@@ -64,36 +64,35 @@ private:
     Callable callback_;
 };
 
-template<typename... Args>
-class MultiArgCallableTask final : public Task {
+template<typename T>
+class SingleArgCallableTask final : public Task {
 public:
-    typedef function<void(Args...)> Callable;
-    typedef tuple<Args...> TestCase;
+    typedef function<void(T)> Callable;
 
-    MultiArgCallableTask(
+    SingleArgCallableTask(
         TaskName name,
         const string& msg,
         Callable callback,
-        const vector<TestCase>& test_cases
+        const vector<T>& test_cases
     ) : Task(name, msg),
         callback_(callback),
         test_cases_(test_cases) {}
 
     void operator() (void) override {
         this->printMessage(test_cases_[idx_]);
-        apply(callback_, test_cases_[idx_]);
+        callback_(test_cases_[idx_]);
         idx_++;
         if (idx_ == test_cases_.size()) idx_ = 0;
     }
 
-    void printMessage(const TestCase& test_case) const {
+    void printMessage(const T& test_case) const {
         switch (name_) {
         case TaskName::SCENARIO:
             cout << endl;
             break;
         case TaskName::GIVEN:
             cout << endl;
-            // fallthrough
+            // fall through
         case TaskName::WHEN:
         case TaskName::THEN:
         case TaskName::AND:
@@ -102,11 +101,7 @@ public:
         }
 
         cout << task_names_[name_] << ' ';
-
-        auto format = [&](Args... args) {
-            return dyna_format(msg_, args...);
-        };
-        cout << apply(format, test_case) << endl;
+        cout << dyna_format(msg_, test_case) << endl;
     }
 
     size_t getMinReqExeTimes(void) const override {
@@ -115,7 +110,7 @@ public:
 
 private:
     Callable callback_;
-    vector<TestCase> test_cases_;
+    vector<T> test_cases_;
     size_t idx_ = 0;
 };
 
@@ -127,8 +122,8 @@ public:
         return true;
     }
 
-    template<typename... Args>
-    bool addTask(MultiArgCallableTask<Args...>* const task) {
+    template<typename T>
+    bool addTask(SingleArgCallableTask<T>* const task) {
         tasks_.emplace_back(task);
         return true;
     }
