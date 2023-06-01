@@ -2,7 +2,7 @@
 #define SCENARIO_MANAGER_HPP
 
 #include <any>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <memory>
 #include "cppbdd/TaskManager.hpp"
@@ -11,7 +11,7 @@ namespace cppbdd {
 
 class ScenarioTask : public Task {
 public:
-    typedef map<string, any> Context;
+    typedef unordered_map<string, any> Context;
     typedef function<void(Context&)> Callable;
 
     ScenarioTask(const string& msg, Callable callback)
