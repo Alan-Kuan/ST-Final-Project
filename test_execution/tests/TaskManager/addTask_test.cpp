@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <vector>
-#include <tuple>
 #include "cppbdd/TaskManager.hpp"
 
 using namespace std;

@@ -2,7 +2,6 @@
 #include <tuple>
 #include <vector>
 #include <string>
-#include <variant>
 #include "cppbdd/TaskManager.hpp"
 
 using namespace std;
