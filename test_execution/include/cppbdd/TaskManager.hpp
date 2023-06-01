@@ -121,12 +121,14 @@ private:
 class TaskManager {
 public:
     bool addTask(CallableTask* const task) {
+        if (!task) return false;
         tasks_.emplace_back(task);
         return true;
     }
 
     template<typename T>
     bool addTask(SingleArgCallableTask<T>* const task) {
+        if (!task) return false;
         tasks_.emplace_back(task);
         return true;
     }

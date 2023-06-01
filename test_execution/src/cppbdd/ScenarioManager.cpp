@@ -8,6 +8,7 @@ void ScenarioTask::operator() (Context& context) {
 }
 
 bool ScenarioManager::addScenario(ScenarioTask *const scenario) {
+    if (!scenario) return false;
     scenarios_.emplace_back(scenario);
     return true;
 }
