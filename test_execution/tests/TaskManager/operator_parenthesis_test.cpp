@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST(TestExecutionCallableTask, OperatorParenthesis) {
+TEST(CallableTask, OperatorParenthesis) {
     int a = 0;
     cppbdd::CallableTask task(cppbdd::TaskName::SCENARIO, "", [&]() { a = 1; });
 
@@ -13,7 +13,7 @@ TEST(TestExecutionCallableTask, OperatorParenthesis) {
     EXPECT_EQ(a, 1);
 }
 
-TEST(TestExecutionSingleArgCallableTask, OperatorParenthesis) {
+TEST(SingleArgCallableTask, OperatorParenthesis) {
     vector<int> a;
     cppbdd::SingleArgCallableTask<int>task(
         cppbdd::TaskName::GIVEN,

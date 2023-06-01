@@ -10,4 +10,4 @@ task_manager_test = executable('TaskManager_test',
   dependencies: test_deps,
   link_with: task_manager_lib)
 
-test('testing the library TaskManager', task_manager_test)
+test('Test the library TaskManager', task_manager_test)

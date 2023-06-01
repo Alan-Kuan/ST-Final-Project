@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(TestExecutionScenarioTask, OperatorParenthesis) {
+TEST(ScenarioTask, OperatorParenthesis) {
     cppbdd::ScenarioTask task("", [&](cppbdd::ScenarioTask::Context& context) {
         context["test"] = 1;
     });

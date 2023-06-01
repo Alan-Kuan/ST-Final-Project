@@ -8,4 +8,4 @@ cppbdd_test = executable('cppbdd_test',
   dependencies: test_deps,
   link_with: [test_execution])
 
-test('testing the library cppbdd', cppbdd_test)
+test('Test the library cppbdd', cppbdd_test)

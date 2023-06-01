@@ -8,12 +8,11 @@ using namespace std;
 
 typedef tuple<cppbdd::TaskName, string, string> Case;
 
-class TestExecutionTask
-    : public ::testing::TestWithParam<Case> {};
+class Task: public ::testing::TestWithParam<Case> {};
 
 INSTANTIATE_TEST_SUITE_P(
     AllTaskNames,
-    TestExecutionTask,
+    Task,
     ::testing::Values(
         Case(cppbdd::TaskName::SCENARIO, "a scenario", "\nScenario: a scenario\n"),
         Case(cppbdd::TaskName::GIVEN, "a given statement", "\n  Given a given statement\n"),
@@ -23,7 +22,7 @@ INSTANTIATE_TEST_SUITE_P(
     )
 );
 
-TEST_P(TestExecutionTask, printMessage) {
+TEST_P(Task, printMessage) {
     auto params = GetParam();
     cppbdd::CallableTask task(get<0>(params), get<1>(params), []() {});
 
@@ -34,7 +33,7 @@ TEST_P(TestExecutionTask, printMessage) {
     EXPECT_EQ(output, get<2>(params));
 }
 
-TEST(TestExecutionSingleArgCallableTask, printMessageWithBool) {
+TEST(SingleArgCallableTask, printMessageWithBool) {
     cppbdd::SingleArgCallableTask<bool> task(
         cppbdd::TaskName::SCENARIO,
         "a = {}",
@@ -49,7 +48,7 @@ TEST(TestExecutionSingleArgCallableTask, printMessageWithBool) {
     EXPECT_EQ(output, "\nScenario: a = true\n");
 }
 
-TEST(TestExecutionSingleArgCallableTask, printMessageWithChar) {
+TEST(SingleArgCallableTask, printMessageWithChar) {
     cppbdd::SingleArgCallableTask<char> task(
         cppbdd::TaskName::GIVEN,
         "b = '{}'",
@@ -64,7 +63,7 @@ TEST(TestExecutionSingleArgCallableTask, printMessageWithChar) {
     EXPECT_EQ(output, "\n  Given b = 'x'\n");
 }
 
-TEST(TestExecutionSingleArgCallableTask, printMessageWithInt) {
+TEST(SingleArgCallableTask, printMessageWithInt) {
     cppbdd::SingleArgCallableTask<int> task(
         cppbdd::TaskName::WHEN,
         "c = {}",
@@ -79,7 +78,7 @@ TEST(TestExecutionSingleArgCallableTask, printMessageWithInt) {
     EXPECT_EQ(output, "  When c = 1\n");
 }
 
-TEST(TestExecutionSingleArgCallableTask, printMessageWithDouble) {
+TEST(SingleArgCallableTask, printMessageWithDouble) {
     cppbdd::SingleArgCallableTask<double> task(
         cppbdd::TaskName::THEN,
         "d = {}",
@@ -94,7 +93,7 @@ TEST(TestExecutionSingleArgCallableTask, printMessageWithDouble) {
     EXPECT_EQ(output, "  Then d = 3.14\n");
 }
 
-TEST(TestExecutionSingleArgCallableTask, printMessageWithString) {
+TEST(SingleArgCallableTask, printMessageWithString) {
     cppbdd::SingleArgCallableTask<string> task(
         cppbdd::TaskName::AND,
         "e = \"{}\"",

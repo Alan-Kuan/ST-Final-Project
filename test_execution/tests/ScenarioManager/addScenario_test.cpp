@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(TestExecutionScenarioManager, addScenario) {
+TEST(ScenarioManager, addScenario) {
     cppbdd::ScenarioManager manager;
 
     auto task = new cppbdd::ScenarioTask("", [](cppbdd::ScenarioTask::Context) {});
@@ -12,7 +12,7 @@ TEST(TestExecutionScenarioManager, addScenario) {
     EXPECT_TRUE(ret);
 }
 
-TEST(TestExecutionScenarioManager, addScenarioNull) {
+TEST(ScenarioManager, addScenarioNull) {
     cppbdd::ScenarioManager manager;
 
     cppbdd::ScenarioTask* task = nullptr;

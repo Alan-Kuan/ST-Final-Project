@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(TestExecutionScenarioManager, runAll) {
+TEST(ScenarioManager, runAll) {
     int a = 0, b = 0;
     cppbdd::ScenarioManager manager;
     auto scenario1 = new cppbdd::ScenarioTask("a = 0", [&](cppbdd::ScenarioTask::Context&) {

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST(TestExecutionCppbdd, UserStory) {
+TEST(Cppbdd, UserStory) {
     ::testing::internal::CaptureStdout();
     cppbdd::UserStory("As a user,", "I want to ooo,", "so that I can xxx.");
     string output = ::testing::internal::GetCapturedStdout();

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST(TestExecutionTaskManager, runAll) {
+TEST(TaskManager, runAll) {
     int a, b;
     bool res = false;
     cppbdd::TaskManager manager;
@@ -22,7 +22,7 @@ TEST(TestExecutionTaskManager, runAll) {
     EXPECT_TRUE(res);
 }
 
-TEST(TestExecutionTaskManager, runAllSingleArg) {
+TEST(TaskManager, runAllSingleArg) {
     int a, b, c;
     bool res;
     cppbdd::TaskManager manager;

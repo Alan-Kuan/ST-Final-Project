@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST(TestExecutionTaskManager, addTask) {
+TEST(TaskManager, addTask) {
     cppbdd::TaskManager manager;
 
     auto task = new cppbdd::CallableTask(cppbdd::TaskName::GIVEN, "", [](void) {});
@@ -13,7 +13,7 @@ TEST(TestExecutionTaskManager, addTask) {
     EXPECT_TRUE(ret);
 }
 
-TEST(TestExecutionTaskManager, addTaskNull) {
+TEST(TaskManager, addTaskNull) {
     cppbdd::TaskManager manager;
 
     cppbdd::CallableTask* task = nullptr;
@@ -22,7 +22,7 @@ TEST(TestExecutionTaskManager, addTaskNull) {
     EXPECT_FALSE(ret);
 }
 
-TEST(TestExecutionTaskManager, addTaskSingleArg) {
+TEST(TaskManager, addTaskSingleArg) {
     cppbdd::TaskManager manager;
 
     auto task = new cppbdd::SingleArgCallableTask<int>(
@@ -36,7 +36,7 @@ TEST(TestExecutionTaskManager, addTaskSingleArg) {
     EXPECT_TRUE(ret);
 }
 
-TEST(TestExecutionTaskManager, addTaskSingleArgNull) {
+TEST(TaskManager, addTaskSingleArgNull) {
     cppbdd::TaskManager manager;
 
     cppbdd::SingleArgCallableTask<int>* task = nullptr;

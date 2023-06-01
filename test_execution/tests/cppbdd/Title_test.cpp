@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TEST(TestExecutionCppbdd, Title) {
+TEST(Cppbdd, Title) {
     ::testing::internal::CaptureStdout();
     cppbdd::Title("title");
     string output = ::testing::internal::GetCapturedStdout();

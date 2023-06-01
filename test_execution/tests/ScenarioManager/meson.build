@@ -9,4 +9,4 @@ scenario_manager_test = executable('ScenarioManager_test',
   dependencies: test_deps,
   link_with: [task_manager_lib, scenario_manager_lib])
 
-test('testing the library ScenarioManager', scenario_manager_test)
+test('Test the library ScenarioManager', scenario_manager_test)
