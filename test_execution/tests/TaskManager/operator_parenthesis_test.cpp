@@ -13,7 +13,7 @@ TEST(TestExecution, CallableTaskOperatorParenthesis) {
     EXPECT_EQ(a, 1);
 }
 
-TEST(TestExecution, MultiArgCallableTaskOperatorParenthesis) {
+TEST(TestExecution, SingleArgCallableTaskOperatorParenthesis) {
     vector<int> a;
     cppbdd::SingleArgCallableTask<int>task(
         cppbdd::TaskName::GIVEN,

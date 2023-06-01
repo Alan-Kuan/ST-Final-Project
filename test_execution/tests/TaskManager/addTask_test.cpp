@@ -14,7 +14,7 @@ TEST(TestExecutionTaskManager, addTask) {
     EXPECT_TRUE(ret);
 }
 
-TEST(TestExecutionTaskManager, addTaskMultiArg) {
+TEST(TestExecutionTaskManager, addTaskSingleArg) {
     cppbdd::TaskManager manager;
 
     auto task = new cppbdd::SingleArgCallableTask<int>(
