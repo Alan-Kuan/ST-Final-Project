@@ -49,4 +49,4 @@ void TaskManager::runAll(void) {
     }
 }
 
-}  // namespace: cppbdd
+}  // namespace cppbdd

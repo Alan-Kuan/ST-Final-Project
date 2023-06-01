@@ -52,6 +52,6 @@ protected:
     vector<ScenarioTaskUniquePtr> scenarios_;
 };
 
-}  // namespace: cppbdd
+}  // namespace cppbdd
 
 #endif  // SCENARIO_MANAGER_HPP

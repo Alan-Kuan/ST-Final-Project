@@ -38,4 +38,4 @@ void runTests(void) {
     SCENARIO_MANAGER.runAll();
 }
 
-}  // namespace: cppbdd
+}  // namespace cppbdd

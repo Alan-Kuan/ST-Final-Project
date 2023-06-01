@@ -14,6 +14,6 @@ string dyna_format(string_view fmt, Args&&... args) {
     return vformat(fmt, make_format_args(args...));
 }
 
-}  // namespace: cppbdd
+}  // namespace cppbdd
 
 #endif  // FORMAT_HPP

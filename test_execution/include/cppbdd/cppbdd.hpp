@@ -71,6 +71,6 @@ void And(
 
 void runTests(void);
 
-}  // namespace: cppbdd
+}  // namespace cppbdd
 
 #endif  // CPPBDD_HPP

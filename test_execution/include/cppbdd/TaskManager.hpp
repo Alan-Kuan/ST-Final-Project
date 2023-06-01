@@ -140,6 +140,6 @@ protected:
     vector<TaskUniquePtr> tasks_;
 };
 
-}  // namespace: cppbdd
+}  // namespace cppbdd
 
 #endif  // TASK_MANAGER_HPP

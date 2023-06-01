@@ -22,4 +22,4 @@ void ScenarioManager::runAll(void) {
     }
 }
 
-}  // namespace: cppbdd
+}  // namespace cppbdd
