@@ -77,7 +77,23 @@ TEST(Expect, ExpectFailedDouble) {
     EXPECT_EQ(output, expected);
 }
 
-TEST(Expect, ExpectFailedString) {
+TEST(Expect, ExpectFailedCharPtr) {
+    char a[] = "hello";
+    char b[] = "world";
+
+    ::testing::internal::CaptureStdout();
+    cppbdd::expect(false, a, b);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    string expected =
+        "  Failed!\n"
+        "  - Actual: \"hello\"\n"
+        "  - Expected: \"world\"\n";
+
+    EXPECT_EQ(output, expected);
+}
+
+TEST(Expect, ExpectFailedConstCharPtr) {
     ::testing::internal::CaptureStdout();
     cppbdd::expect(false, "hello", "world");
     string output = ::testing::internal::GetCapturedStdout();
@@ -86,6 +102,50 @@ TEST(Expect, ExpectFailedString) {
         "  Failed!\n"
         "  - Actual: \"hello\"\n"
         "  - Expected: \"world\"\n";
+
+    EXPECT_EQ(output, expected);
+}
+
+TEST(Expect, ExpectFailedString) {
+    ::testing::internal::CaptureStdout();
+    cppbdd::expect(false, string("hello"), string("world"));
+    string output = ::testing::internal::GetCapturedStdout();
+
+    string expected =
+        "  Failed!\n"
+        "  - Actual: \"hello\"\n"
+        "  - Expected: \"world\"\n";
+
+    EXPECT_EQ(output, expected);
+}
+
+class CustomClass {
+public:
+    CustomClass(int x): x_(x) {}
+    bool operator== (const CustomClass& other) const {
+        return this->x_ == other.x_;
+    }
+    friend ostream& operator<< (ostream& os, const CustomClass& c);
+
+private:
+    int x_;
+};
+
+ostream& operator<< (ostream& os, const CustomClass& c) {
+    return os << "C(" << c.x_ << ')';
+}
+
+TEST(Expect, ExpectFailedCustomClass) {
+    CustomClass c1(0), c2(1);
+
+    ::testing::internal::CaptureStdout();
+    cppbdd::expect(false, c1, c2);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    string expected =
+        "  Failed!\n"
+        "  - Actual: C(0)\n"
+        "  - Expected: C(1)\n";
 
     EXPECT_EQ(output, expected);
 }

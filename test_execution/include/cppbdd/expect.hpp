@@ -21,17 +21,13 @@ static void expect(bool condition, T actual, T expected) {
     } else {
         cout << "  Failed!" << endl;
 
-        if (is_same<T, bool>()) {
+        if constexpr (is_same_v<T, bool>) {
             cout << "  - Actual: " << (actual ? "true" : "false") << endl;
             cout << "  - Expected: " << (expected ? "true" : "false") << endl;
-        } else if (is_same<T, char>()) {
+        } else if constexpr (is_same_v<T, char>) {
             cout << "  - Actual: " << '\'' << actual << '\'' << endl;
             cout << "  - Expected: " << '\'' << expected << '\'' << endl;
-        } else if (is_same<T, char*>() || 
-                   is_same<T, const char*>() ||
-                   is_same<T, char* const>() ||
-                   is_same<T, const char* const>() ||
-                   is_same<T, string>()) {
+        } else if constexpr (is_same_v<T, char*> || is_same_v<T, const char*> || is_same_v<T, string>) {
             cout << "  - Actual: " << '"' << actual << '"' << endl;
             cout << "  - Expected: " << '"' << expected << '"' << endl;
         } else {
