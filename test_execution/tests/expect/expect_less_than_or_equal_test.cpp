@@ -1,0 +1,34 @@
+#include <gtest/gtest.h>
+#include "cppbdd/expect.hpp"
+
+using namespace std;
+
+TEST(Expect, ExpectLessThanOrEqual_Passed_Less) {
+    ::testing::internal::CaptureStdout();
+    cppbdd::ExpectLessThanOrEqual(0, 1);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  - Passed!\n");
+}
+
+TEST(Expect, ExpectLessThanOrEqual_Passed_Equal) {
+    ::testing::internal::CaptureStdout();
+    cppbdd::ExpectLessThanOrEqual(0, 0);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  - Passed!\n");
+}
+
+TEST(Expect, ExpectLessThanOrEqual_Failed) {
+    ::testing::internal::CaptureStdout();
+    cppbdd::ExpectLessThanOrEqual(1, 0);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    string expected =
+        "  - Failed!\n"
+        "    Expect lhs <= rhs\n"
+        "    - lhs: 1\n"
+        "    - rhs: 0\n";
+
+    EXPECT_EQ(output, expected);
+}
