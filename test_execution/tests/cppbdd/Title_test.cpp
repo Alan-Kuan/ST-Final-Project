@@ -9,5 +9,9 @@ TEST(Cppbdd, Title) {
     cppbdd::Title("title");
     string output = ::testing::internal::GetCapturedStdout();
 
-    EXPECT_EQ(output, "title\n-----\n");
+    string expected =
+        "title\n"
+        "-----\n";
+
+    EXPECT_EQ(output, expected);
 }
