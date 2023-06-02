@@ -1,4 +1,4 @@
-main_sources = files('cppbdd/cppbdd.cpp')
+main_sources = files('cppbdd/cppbdd.cpp', 'cppbdd/expect.cpp')
 
 task_manager_source = files('cppbdd/TaskManager.cpp')
 task_manager_lib = static_library('TaskManager',

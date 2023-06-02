@@ -1,8 +1,8 @@
 #include "cppbdd/cppbdd.hpp"
+#include "cppbdd/expect.hpp"
 #include <functional>
 #include <vector>
 #include <tuple>
-#include <cassert>
 
 #include <list>
 
@@ -44,13 +44,13 @@ void init(void) {
                 auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
-                assert(len == x);
+                cppbdd::expect_eq(len, x);
             },
             vector<int> {2, 1});
 
         And("the last element of it should be {}", [&](int x) {
                 auto& l = any_cast<list<int>&>(context["list"]);
-                assert(*l.rbegin() == x);
+                cppbdd::expect_eq(*l.rbegin(), x);
             },
             vector<int> {5, -1});
     });
@@ -74,7 +74,7 @@ void init(void) {
                 auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
-                assert(len == x);
+                cppbdd::expect_eq(len, x);
             },
             vector<int> {0});
     });
@@ -83,5 +83,6 @@ void init(void) {
 int main(void) {
     init();
     cppbdd::runTests();
+    cppbdd::showResults();
     return 0;
 }
