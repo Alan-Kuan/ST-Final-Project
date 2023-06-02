@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(Expect, ExpectNotEqual_Passed) {
+TEST(Expect, ExpectNotEqual_Less) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectNotEqual(0, 1);
     string output = ::testing::internal::GetCapturedStdout();
@@ -11,7 +11,7 @@ TEST(Expect, ExpectNotEqual_Passed) {
     EXPECT_EQ(output, "  - Passed!\n");
 }
 
-TEST(Expect, ExpectNotEqual_Failed) {
+TEST(Expect, ExpectNotEqual_Equal) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectNotEqual(0, 0);
     string output = ::testing::internal::GetCapturedStdout();
@@ -23,6 +23,14 @@ TEST(Expect, ExpectNotEqual_Failed) {
         "    - rhs: 0\n";
 
     EXPECT_EQ(output, expected);
+}
+
+TEST(Expect, ExpectNotEqual_Greater) {
+    ::testing::internal::CaptureStdout();
+    cppbdd::ExpectNotEqual(1, 0);
+    string output = ::testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(output, "  - Passed!\n");
 }
 
 TEST(Expect, ExpectNotEqual_CString_Less) {

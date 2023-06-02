@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(Expect, ExpectLessThanOrEqual_Passed_Less) {
+TEST(Expect, ExpectLessThanOrEqual_Less) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectLessThanOrEqual(0, 1);
     string output = ::testing::internal::GetCapturedStdout();
@@ -11,7 +11,7 @@ TEST(Expect, ExpectLessThanOrEqual_Passed_Less) {
     EXPECT_EQ(output, "  - Passed!\n");
 }
 
-TEST(Expect, ExpectLessThanOrEqual_Passed_Equal) {
+TEST(Expect, ExpectLessThanOrEqual_Equal) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectLessThanOrEqual(0, 0);
     string output = ::testing::internal::GetCapturedStdout();
@@ -19,7 +19,7 @@ TEST(Expect, ExpectLessThanOrEqual_Passed_Equal) {
     EXPECT_EQ(output, "  - Passed!\n");
 }
 
-TEST(Expect, ExpectLessThanOrEqual_Failed) {
+TEST(Expect, ExpectLessThanOrEqual_Greater) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectLessThanOrEqual(1, 0);
     string output = ::testing::internal::GetCapturedStdout();
