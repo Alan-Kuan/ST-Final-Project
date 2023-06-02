@@ -2,7 +2,6 @@
 #include "cppbdd/expect.hpp"
 #include <functional>
 #include <vector>
-#include <tuple>
 
 #include <list>
 
