@@ -7,7 +7,8 @@ expect_test_source = files(
   'expect_less_than_test.cpp',
   'expect_less_than_or_equal_test.cpp',
   'expect_greater_than_test.cpp',
-  'expect_greater_than_or_equal_test.cpp')
+  'expect_greater_than_or_equal_test.cpp',
+  'show_expected_message_test.cpp')
 
 expect_test = executable('expect_test',
   [expect_test_source, test_main],

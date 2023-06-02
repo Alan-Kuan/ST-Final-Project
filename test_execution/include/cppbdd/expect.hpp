@@ -29,6 +29,7 @@ static void ShowExpectedMessage(const std::string& op, const T& lhs, const T& rh
         rhs_ss << '\'' << rhs << '\'';
     } else if constexpr (std::is_same_v<T, char*> || 
                          std::is_same_v<T, const char*> ||
+                         (std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, char>) ||
                          std::is_same_v<T, std::string>) {
         lhs_ss << '"' << lhs << '"';
         rhs_ss << '"' << rhs << '"';
