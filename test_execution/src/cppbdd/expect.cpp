@@ -1,5 +1,8 @@
 #include "cppbdd/expect.hpp"
 
+#include <cstring>
+#include <iostream>
+
 namespace cppbdd {
 
 namespace internal {
@@ -30,6 +33,36 @@ void ExpectTrue(bool actual) {
 
 void ExpectFalse(bool actual) {
     ExpectEqual(actual, false);
+}
+
+void ExpectEqual(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) == 0)) return;
+    internal::ShowExpectation("==", lhs, rhs);
+}
+
+void ExpectNotEqual(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) != 0)) return;
+    internal::ShowExpectation("!=", lhs, rhs);
+}
+
+void ExpectLessThan(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) < 0)) return;
+    internal::ShowExpectation("<", lhs, rhs);
+}
+
+void ExpectLessThanOrEqual(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) <= 0)) return;
+    internal::ShowExpectation("<=", lhs, rhs);
+}
+
+void ExpectGreaterThan(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) > 0)) return;
+    internal::ShowExpectation(">", lhs, rhs);
+}
+
+void ExpectGreaterThanOrEqual(const char* lhs, const char* rhs) {
+    if (internal::Expect(strcmp(lhs, rhs) >= 0)) return;
+    internal::ShowExpectation(">=", lhs, rhs);
 }
 
 }  // namespace cppbdd
