@@ -3,24 +3,24 @@
 
 using namespace std;
 
-TEST(Expect, ExpectNe_Passed) {
+TEST(Expect, ExpectEqual_Passed) {
     ::testing::internal::CaptureStdout();
-    cppbdd::expect_ne(0, 1);
+    cppbdd::ExpectEqual(0, 0);
     string output = ::testing::internal::GetCapturedStdout();
 
     EXPECT_EQ(output, "  - Passed!\n");
 }
 
-TEST(Expect, ExpectNe_Failed) {
+TEST(Expect, ExpectEqual_Failed) {
     ::testing::internal::CaptureStdout();
-    cppbdd::expect_ne(0, 0);
+    cppbdd::ExpectEqual(0, 1);
     string output = ::testing::internal::GetCapturedStdout();
 
     string expected =
         "  - Failed!\n"
-        "    Expect lhs != rhs\n"
+        "    Expect lhs == rhs\n"
         "    - lhs: 0\n"
-        "    - rhs: 0\n";
+        "    - rhs: 1\n";
 
     EXPECT_EQ(output, expected);
 }

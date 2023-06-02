@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <vector>
-#include "cppbdd/TaskManager.hpp"
+#include "cppbdd/task_manager.hpp"
 
 using namespace std;
 
@@ -8,14 +8,14 @@ TEST(TaskManager, runAll) {
     int a, b;
     bool res = false;
     cppbdd::TaskManager manager;
-    auto given = new cppbdd::CallableTask(cppbdd::TaskName::GIVEN, "a = 0", [&](void) { a = 0; });
-    auto when = new cppbdd::CallableTask(cppbdd::TaskName::WHEN, "let b = a + 1", [&](void) { b = a + 1; });
-    auto then = new cppbdd::CallableTask(cppbdd::TaskName::THEN, "b = 1", [&](void) { res = (b == 1); });
-    manager.addTask(given);
-    manager.addTask(when);
-    manager.addTask(then);
+    auto given = new cppbdd::CallableTask(cppbdd::TaskName::kGiven, "a = 0", [&](void) { a = 0; });
+    auto when = new cppbdd::CallableTask(cppbdd::TaskName::kWhen, "let b = a + 1", [&](void) { b = a + 1; });
+    auto then = new cppbdd::CallableTask(cppbdd::TaskName::kThen, "b = 1", [&](void) { res = (b == 1); });
+    manager.AddTask(given);
+    manager.AddTask(when);
+    manager.AddTask(then);
 
-    manager.runAll();
+    manager.RunAll();
 
     EXPECT_EQ(a, 0);
     EXPECT_EQ(b, 1);
@@ -27,33 +27,33 @@ TEST(TaskManager, runAllSingleArg) {
     bool res;
     cppbdd::TaskManager manager;
     auto given = new cppbdd::SingleArgCallableTask<int>(
-        cppbdd::TaskName::GIVEN,
+        cppbdd::TaskName::kGiven,
         "a = {}",
         [&](int x) { a = x; },
         vector<int> {1}
     );
     auto and_given = new cppbdd::SingleArgCallableTask<int>(
-        cppbdd::TaskName::AND,
+        cppbdd::TaskName::kAnd,
         "b = {}",
         [&](int x) { b = x; },
         vector<int> {3}
     );
     auto when = new cppbdd::CallableTask(
-        cppbdd::TaskName::WHEN,
+        cppbdd::TaskName::kWhen,
         "let c = a + b", [&](void) { c = a + b; }
     );
     auto then = new cppbdd::SingleArgCallableTask<int>(
-        cppbdd::TaskName::THEN,
+        cppbdd::TaskName::kThen,
         "c = {}",
         [&](int x) { res = (c == x); },
         vector<int> {4}
     );
-    manager.addTask(given);
-    manager.addTask(and_given);
-    manager.addTask(when);
-    manager.addTask(then);
+    manager.AddTask(given);
+    manager.AddTask(and_given);
+    manager.AddTask(when);
+    manager.AddTask(then);
 
-    manager.runAll();
+    manager.RunAll();
 
     EXPECT_EQ(a, 1);
     EXPECT_EQ(b, 3);

@@ -1,5 +1,5 @@
-#ifndef FORMAT_HPP
-#define FORMAT_HPP
+#ifndef CPPBDD_FORMAT_HPP_
+#define CPPBDD_FORMAT_HPP_
 
 #include <string>
 #include <string_view>
@@ -7,13 +7,11 @@
 
 namespace cppbdd {
 
-using namespace std;
-
 template <typename... Args>
-string dyna_format(string_view fmt, Args&&... args) {
-    return vformat(fmt, make_format_args(args...));
+std::string dyna_format(std::string_view fmt, Args&&... args) {
+    return vformat(fmt, std::make_format_args(args...));
 }
 
 }  // namespace cppbdd
 
-#endif  // FORMAT_HPP
+#endif  // CPPBDD_FORMAT_HPP_

@@ -1,6 +1,6 @@
 cppbdd_test_source = files(
-  'Title_test.cpp',
-  'UserStory_test.cpp')
+  'title_test.cpp',
+  'user_story_test.cpp')
 
 cppbdd_test = executable('cppbdd_test',
   [cppbdd_test_source, test_main],

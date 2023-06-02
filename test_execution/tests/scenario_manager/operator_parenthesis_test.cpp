@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "cppbdd/ScenarioManager.hpp"
+#include "cppbdd/scenario_manager.hpp"
 
 using namespace std;
 

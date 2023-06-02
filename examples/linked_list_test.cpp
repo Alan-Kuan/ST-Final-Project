@@ -43,13 +43,13 @@ void init(void) {
                 auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
-                cppbdd::expect_eq(len, x);
+                cppbdd::ExpectEqual(len, x);
             },
             vector<int> {2, 1});
 
         And("the last element of it should be {}", [&](int x) {
                 auto& l = any_cast<list<int>&>(context["list"]);
-                cppbdd::expect_eq(*l.rbegin(), x);
+                cppbdd::ExpectEqual(*l.rbegin(), x);
             },
             vector<int> {5, -1});
     });
@@ -73,7 +73,7 @@ void init(void) {
                 auto& l = any_cast<list<int>&>(context["list"]);
                 int len = 0;
                 for (auto it = l.begin(); it != l.end(); it++, len++);
-                cppbdd::expect_eq(len, x);
+                cppbdd::ExpectEqual(len, x);
             },
             vector<int> {0});
     });
@@ -81,7 +81,7 @@ void init(void) {
 
 int main(void) {
     init();
-    cppbdd::runTests();
-    cppbdd::showResults();
+    cppbdd::RunTests();
+    cppbdd::ShowResults();
     return 0;
 }

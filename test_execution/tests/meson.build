@@ -7,7 +7,7 @@ test_deps = [
   gtest_dep,
   thread_dep]
 
-subdir('ScenarioManager')
-subdir('TaskManager')
+subdir('scenario_manager')
+subdir('task_manager')
 subdir('cppbdd')
 subdir('expect')

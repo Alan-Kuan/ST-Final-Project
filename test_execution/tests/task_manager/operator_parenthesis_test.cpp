@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 #include <vector>
-#include "cppbdd/TaskManager.hpp"
+#include "cppbdd/task_manager.hpp"
 
 using namespace std;
 
 TEST(CallableTask, OperatorParenthesis) {
     int a = 0;
-    cppbdd::CallableTask task(cppbdd::TaskName::SCENARIO, "", [&]() { a = 1; });
+    cppbdd::CallableTask task(cppbdd::TaskName::kScenario, "", [&]() { a = 1; });
 
     task();
 
@@ -16,7 +16,7 @@ TEST(CallableTask, OperatorParenthesis) {
 TEST(SingleArgCallableTask, OperatorParenthesis) {
     vector<int> a;
     cppbdd::SingleArgCallableTask<int>task(
-        cppbdd::TaskName::GIVEN,
+        cppbdd::TaskName::kGiven,
         "a = {}",
         [&](int x) { a.push_back(x); },
         vector<int> {1, 2}

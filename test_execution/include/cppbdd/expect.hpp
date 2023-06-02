@@ -1,5 +1,5 @@
-#ifndef EXPECT_HPP
-#define EXPECT_HPP
+#ifndef CPPBDD_EXPECT_HPP_
+#define CPPBDD_EXPECT_HPP_
 
 #include <iostream>
 #include <sstream>
@@ -7,27 +7,29 @@
 
 namespace cppbdd {
 
-using namespace std;
+namespace internal {
 
-extern int TOTAL_TESTS;
-extern int PASSED_TESTS;
+extern int total_tests;
+extern int passed_tests;
 
-void showResults(void);
+bool Expect(bool condition);
 
 template<typename T>
-static void showExpectedMessage(const string& op, const T& lhs, const T& rhs) {
-    stringstream lhs_ss, rhs_ss;
+static void ShowExpectedMessage(const std::string& op, const T& lhs, const T& rhs) {
+    std::stringstream lhs_ss, rhs_ss;
 
-    cout << "  - Failed!" << endl;
-    cout << "    Expect lhs " << op << " rhs" << endl;
+    std::cout << "  - Failed!" << std::endl;
+    std::cout << "    Expect lhs " << op << " rhs" << std::endl;
 
-    if constexpr (is_same_v<T, bool>) {
+    if constexpr (std::is_same_v<T, bool>) {
         lhs_ss << (lhs ? "true" : "false");
         rhs_ss << (rhs ? "true" : "false");
-    } else if constexpr (is_same_v<T, char>) {
+    } else if constexpr (std::is_same_v<T, char>) {
         lhs_ss << '\'' << lhs << '\'';
         rhs_ss << '\'' << rhs << '\'';
-    } else if constexpr (is_same_v<T, char*> || is_same_v<T, const char*> || is_same_v<T, string>) {
+    } else if constexpr (std::is_same_v<T, char*> || 
+                         std::is_same_v<T, const char*> ||
+                         std::is_same_v<T, std::string>) {
         lhs_ss << '"' << lhs << '"';
         rhs_ss << '"' << rhs << '"';
     } else {
@@ -35,51 +37,53 @@ static void showExpectedMessage(const string& op, const T& lhs, const T& rhs) {
         rhs_ss << rhs;
     }
 
-    cout << "    - lhs: " << lhs_ss.str() << endl;
-    cout << "    - rhs: " << rhs_ss.str() << endl;
+    std::cout << "    - lhs: " << lhs_ss.str() << std::endl;
+    std::cout << "    - rhs: " << rhs_ss.str() << std::endl;
 }
 
-bool expect(bool condition);
+}  // namespace internal
 
-void expect_true(bool actual);
-void expect_false(bool actual);
+void ShowResults(void);
 
-template<typename T>
-void expect_eq(T lhs, T rhs) {
-    if (expect(lhs == rhs)) return;
-    showExpectedMessage("==", lhs, rhs);
-}
+void ExpectTrue(bool actual);
+void ExpectFalse(bool actual);
 
 template<typename T>
-void expect_ne(T lhs, T rhs) {
-    if (expect(lhs != rhs)) return;
-    showExpectedMessage("!=", lhs, rhs);
+void ExpectEqual(T lhs, T rhs) {
+    if (internal::Expect(lhs == rhs)) return;
+    internal::ShowExpectedMessage("==", lhs, rhs);
 }
 
 template<typename T>
-void expect_lt(T lhs, T rhs) {
-    if (expect(lhs < rhs)) return;
-    showExpectedMessage("<", lhs, rhs);
+void ExpectNotEqual(T lhs, T rhs) {
+    if (internal::Expect(lhs != rhs)) return;
+    internal::ShowExpectedMessage("!=", lhs, rhs);
 }
 
 template<typename T>
-void expect_le(T lhs, T rhs) {
-    if (expect(lhs <= rhs)) return;
-    showExpectedMessage("<=", lhs, rhs);
+void ExpectLessThan(T lhs, T rhs) {
+    if (internal::Expect(lhs < rhs)) return;
+    internal::ShowExpectedMessage("<", lhs, rhs);
 }
 
 template<typename T>
-void expect_gt(T lhs, T rhs) {
-    if (expect(lhs > rhs)) return;
-    showExpectedMessage(">", lhs, rhs);
+void ExpectLessThanOrEqual(T lhs, T rhs) {
+    if (internal::Expect(lhs <= rhs)) return;
+    internal::ShowExpectedMessage("<=", lhs, rhs);
 }
 
 template<typename T>
-void expect_ge(T lhs, T rhs) {
-    if (expect(lhs >= rhs)) return;
-    showExpectedMessage(">=", lhs, rhs);
+void ExpectGreaterThan(T lhs, T rhs) {
+    if (internal::Expect(lhs > rhs)) return;
+    internal::ShowExpectedMessage(">", lhs, rhs);
+}
+
+template<typename T>
+void ExpectGreaterThanOrEqual(T lhs, T rhs) {
+    if (internal::Expect(lhs >= rhs)) return;
+    internal::ShowExpectedMessage(">=", lhs, rhs);
 }
 
 }  // namespace cppbdd
 
-#endif  // EXPECT_HPP
+#endif  // CPPBDD_EXPECT_HPP_

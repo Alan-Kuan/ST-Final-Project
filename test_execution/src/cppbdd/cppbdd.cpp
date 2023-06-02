@@ -2,40 +2,42 @@
 
 namespace cppbdd {
 
-ScenarioManager SCENARIO_MANAGER;
+namespace internal {
+    ScenarioManager scenario_manager;
+}
 
-void Title(const string& msg) {
-    cout << msg << endl;
-    cout << string(msg.length(), '-') << endl;
+void Title(const std::string& msg) {
+    std::cout << msg << std::endl;
+    std::cout << std::string(msg.length(), '-') << std::endl;
 }
 
 void Scenario(const char* const msg, ScenarioTask::Callable callback) {
     auto task = new ScenarioTask(msg, callback);
-    SCENARIO_MANAGER.addScenario(task);
+    internal::scenario_manager.AddScenario(task);
 }
 
 void Given(const char* const msg, CallableTask::Callable callback) {
-    auto task = new CallableTask(TaskName::GIVEN, msg, callback);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new CallableTask(TaskName::kGiven, msg, callback);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 void When(const char* const msg, CallableTask::Callable callback) {
-    auto task = new CallableTask(TaskName::WHEN, msg, callback);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new CallableTask(TaskName::kWhen, msg, callback);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 void Then(const char* const msg, CallableTask::Callable callback) {
-    auto task = new CallableTask(TaskName::THEN, msg, callback);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new CallableTask(TaskName::kThen, msg, callback);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 void And(const char* const msg, CallableTask::Callable callback) {
-    auto task = new CallableTask(TaskName::AND, msg, callback);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new CallableTask(TaskName::kAnd, msg, callback);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 void runTests(void) {
-    SCENARIO_MANAGER.runAll();
+    internal::scenario_manager.RunAll();
 }
 
 }  // namespace cppbdd

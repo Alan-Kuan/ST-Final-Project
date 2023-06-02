@@ -6,7 +6,7 @@ using namespace std;
 
 TEST(Expect, Expect_True) {
     ::testing::internal::CaptureStdout();
-    bool ret = cppbdd::expect(true);
+    bool ret = cppbdd::internal::Expect(true);
     string output = ::testing::internal::GetCapturedStdout();
 
     EXPECT_EQ(output, "  - Passed!\n");
@@ -14,7 +14,7 @@ TEST(Expect, Expect_True) {
 }
 
 TEST(Expect, Expect_False) {
-    bool ret = cppbdd::expect(false);
+    bool ret = cppbdd::internal::Expect(false);
 
     EXPECT_FALSE(ret);
 }

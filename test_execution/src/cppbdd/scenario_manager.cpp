@@ -1,23 +1,23 @@
-#include "cppbdd/ScenarioManager.hpp"
+#include "cppbdd/scenario_manager.hpp"
 
 namespace cppbdd {
 
 void ScenarioTask::operator() (Context& context) {
-    this->printMessage();
+    this->PrintMessage();
     callback_(context);
 }
 
-bool ScenarioManager::addScenario(ScenarioTask *const scenario) {
+bool ScenarioManager::AddScenario(ScenarioTask* const scenario) {
     if (!scenario) return false;
     scenarios_.emplace_back(scenario);
     return true;
 }
 
-void ScenarioManager::runAll(void) {
+void ScenarioManager::RunAll(void) {
     for (const auto& scenario : scenarios_) {
         ScenarioTask::Context context;
         (*scenario)(context);
-        stmt_manager_.runAll();
+        stmt_manager_.RunAll();
         stmt_manager_.clear();
     }
 }

@@ -1,8 +1,8 @@
-#include "cppbdd/TaskManager.hpp"
+#include "cppbdd/task_manager.hpp"
 
 namespace cppbdd {
 
-array<string, 5> Task::task_names_({
+std::array<std::string, 5> Task::task_names_({
     "Scenario:",
     "Given",
     "When",
@@ -10,31 +10,31 @@ array<string, 5> Task::task_names_({
     "And"
 });
 
-void Task::printMessage(void) const {
+void Task::PrintMessage(void) const {
     switch (name_) {
-    case TaskName::SCENARIO:
-        cout << endl;
+    case TaskName::kScenario:
+        std::cout << std::endl;
         break;
-    case TaskName::GIVEN:
-        cout << endl;
+    case TaskName::kGiven:
+        std::cout << std::endl;
         // fall through
-    case TaskName::WHEN:
-    case TaskName::THEN:
-    case TaskName::AND:
-        cout << "  ";
+    case TaskName::kWhen:
+    case TaskName::kThen:
+    case TaskName::kAnd:
+        std::cout << "  ";
         break;
     }
-    cout << task_names_[name_] << ' ' << msg_ << endl;
+    std::cout << task_names_[name_] << ' ' << msg_ << std::endl;
 }
 
 void TaskManager::clear() {
     tasks_.clear();
 }
 
-void TaskManager::runAll(void) {
+void TaskManager::RunAll(void) {
     size_t exe_times = 1;
     for (const auto& task : tasks_) {
-        size_t curr = task->getMinReqExeTimes();
+        size_t curr = task->GetMinReqExeTimes();
         // all multi-arg tasks must have the same number of test cases
         if (curr > 1) {
             exe_times = curr;

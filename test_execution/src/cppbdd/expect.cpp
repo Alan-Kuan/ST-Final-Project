@@ -2,29 +2,34 @@
 
 namespace cppbdd {
 
-int TOTAL_TESTS = 0;
-int PASSED_TESTS = 0;
+namespace internal {
 
-void showResults(void) {
-    cout << endl << string(20, '=') << endl;
-    cout << "Passed: " << PASSED_TESTS << '/' << TOTAL_TESTS << endl;
-}
+int total_tests = 0;
+int passed_tests = 0;
 
-bool expect(bool condition) {
-    TOTAL_TESTS++;
+bool Expect(bool condition) {
+    total_tests++;
     if (condition) {
-        cout << "  - Passed!" << endl;
-        PASSED_TESTS++;
+        std::cout << "  - Passed!" << std::endl;
+        passed_tests++;
     }
     return condition;
 }
 
-void expect_true(bool actual) {
-    expect_eq(actual, true);
+}  // namespace internal
+
+void ShowResults(void) {
+    std::cout << std::endl << std::string(20, '=') << std::endl;
+    std::cout << "Passed: " << internal::passed_tests << '/';
+    std::cout << internal::total_tests << std::endl;
 }
 
-void expect_false(bool actual) {
-    expect_eq(actual, false);
+void ExpectTrue(bool actual) {
+    ExpectEqual(actual, true);
+}
+
+void ExpectFalse(bool actual) {
+    ExpectEqual(actual, false);
 }
 
 }  // namespace cppbdd

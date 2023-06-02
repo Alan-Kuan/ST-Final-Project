@@ -1,25 +1,25 @@
-#ifndef CPPBDD_HPP
-#define CPPBDD_HPP
+#ifndef CPPBDD_CPPBDD_HPP_
+#define CPPBDD_CPPBDD_HPP_
 
 #include <iostream>
 #include <string>
 #include <functional>
 
-#include "cppbdd/TaskManager.hpp"
-#include "cppbdd/ScenarioManager.hpp"
+#include "cppbdd/task_manager.hpp"
+#include "cppbdd/scenario_manager.hpp"
 
 namespace cppbdd {
 
-using namespace std;
+namespace internal {
+    extern ScenarioManager scenario_manager;
+}
 
-extern ScenarioManager SCENARIO_MANAGER;
+void Title(const std::string& msg);
 
-void Title(const string& msg);
-
-template<same_as<const char*>... Args>
+template<std::same_as<const char*>... Args>
 void UserStory(Args... msgs) {
-    for (const string& msg : {msgs...}) {
-        cout << msg << endl;
+    for (const std::string& msg : {msgs...}) {
+        std::cout << msg << std::endl;
     }
 }
 
@@ -33,44 +33,44 @@ template<typename T>
 void Given(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases
+    const std::vector<T>& test_cases
 ) {
-    auto task = new SingleArgCallableTask<T>(TaskName::GIVEN, msg, callback, test_cases);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new SingleArgCallableTask<T>(TaskName::kGiven, msg, callback, test_cases);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void When(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases
+    const std::vector<T>& test_cases
 ) {
-    auto task = new SingleArgCallableTask<T>(TaskName::WHEN, msg, callback, test_cases);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new SingleArgCallableTask<T>(TaskName::kWhen, msg, callback, test_cases);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void Then(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases
+    const std::vector<T>& test_cases
 ) {
-    auto task = new SingleArgCallableTask<T>(TaskName::THEN, msg, callback, test_cases);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new SingleArgCallableTask<T>(TaskName::kThen, msg, callback, test_cases);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
 template<typename T>
 void And(
     const char* const msg,
     typename SingleArgCallableTask<T>::Callable callback,
-    const vector<T>& test_cases
+    const std::vector<T>& test_cases
 ) {
-    auto task = new SingleArgCallableTask<T>(TaskName::AND, msg, callback, test_cases);
-    SCENARIO_MANAGER.addTaskToCurrStmtManager(task);
+    auto task = new SingleArgCallableTask<T>(TaskName::kAnd, msg, callback, test_cases);
+    internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
-void runTests(void);
+void RunTests(void);
 
 }  // namespace cppbdd
 
-#endif  // CPPBDD_HPP
+#endif  // CPPBDD_CPPBDD_HPP_

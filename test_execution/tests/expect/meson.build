@@ -2,12 +2,12 @@ expect_test_source = files(
   'expect_test.cpp',
   'expect_true_test.cpp',
   'expect_false_test.cpp',
-  'expect_eq_test.cpp',
-  'expect_ne_test.cpp',
-  'expect_lt_test.cpp',
-  'expect_le_test.cpp',
-  'expect_gt_test.cpp',
-  'expect_ge_test.cpp')
+  'expect_equal_test.cpp',
+  'expect_not_equal_test.cpp',
+  'expect_less_than_test.cpp',
+  'expect_less_than_or_equal_test.cpp',
+  'expect_greater_than_test.cpp',
+  'expect_greater_than_or_equal_test.cpp')
 
 expect_test = executable('expect_test',
   [expect_test_source, test_main],
