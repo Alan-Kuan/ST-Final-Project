@@ -14,4 +14,4 @@ test:
 	meson test -C $(BUILD)
 
 clean:
-	rm -rf $(BUILD)
+	meson compile -C $(BUILD) --clean
