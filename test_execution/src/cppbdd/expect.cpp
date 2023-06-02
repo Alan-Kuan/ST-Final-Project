@@ -10,12 +10,21 @@ void showResults(void) {
     cout << "Passed: " << PASSED_TESTS << '/' << TOTAL_TESTS << endl;
 }
 
+bool expect(bool condition) {
+    TOTAL_TESTS++;
+    if (condition) {
+        cout << "  - Passed!" << endl;
+        PASSED_TESTS++;
+    }
+    return condition;
+}
+
 void expect_true(bool actual) {
-    expect(actual == true, actual, true);
+    expect_eq(actual, true);
 }
 
 void expect_false(bool actual) {
-    expect(actual == false, actual, false);
+    expect_eq(actual, false);
 }
 
 }  // namespace cppbdd
