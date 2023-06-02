@@ -15,7 +15,7 @@ extern int passed_tests;
 bool Expect(bool condition);
 
 template<typename T>
-static void ShowExpectedMessage(const std::string& op, const T& lhs, const T& rhs) {
+static void ShowExpectation(const std::string& op, const T& lhs, const T& rhs) {
     std::stringstream lhs_ss, rhs_ss;
 
     std::cout << "  - Failed!" << std::endl;
@@ -52,37 +52,37 @@ void ExpectFalse(bool actual);
 template<typename T>
 void ExpectEqual(T lhs, T rhs) {
     if (internal::Expect(lhs == rhs)) return;
-    internal::ShowExpectedMessage("==", lhs, rhs);
+    internal::ShowExpectation("==", lhs, rhs);
 }
 
 template<typename T>
 void ExpectNotEqual(T lhs, T rhs) {
     if (internal::Expect(lhs != rhs)) return;
-    internal::ShowExpectedMessage("!=", lhs, rhs);
+    internal::ShowExpectation("!=", lhs, rhs);
 }
 
 template<typename T>
 void ExpectLessThan(T lhs, T rhs) {
     if (internal::Expect(lhs < rhs)) return;
-    internal::ShowExpectedMessage("<", lhs, rhs);
+    internal::ShowExpectation("<", lhs, rhs);
 }
 
 template<typename T>
 void ExpectLessThanOrEqual(T lhs, T rhs) {
     if (internal::Expect(lhs <= rhs)) return;
-    internal::ShowExpectedMessage("<=", lhs, rhs);
+    internal::ShowExpectation("<=", lhs, rhs);
 }
 
 template<typename T>
 void ExpectGreaterThan(T lhs, T rhs) {
     if (internal::Expect(lhs > rhs)) return;
-    internal::ShowExpectedMessage(">", lhs, rhs);
+    internal::ShowExpectation(">", lhs, rhs);
 }
 
 template<typename T>
 void ExpectGreaterThanOrEqual(T lhs, T rhs) {
     if (internal::Expect(lhs >= rhs)) return;
-    internal::ShowExpectedMessage(">=", lhs, rhs);
+    internal::ShowExpectation(">=", lhs, rhs);
 }
 
 }  // namespace cppbdd
