@@ -2,6 +2,7 @@
 #define EXPECT_HPP
 
 #include <iostream>
+#include <type_traits>
 
 namespace cppbdd {
 
@@ -19,8 +20,24 @@ static void expect(bool condition, T actual, T expected) {
         PASSED_TESTS++;
     } else {
         cout << "  Failed!" << endl;
-        cout << "  - Actual: " << actual << endl;
-        cout << "  - Expected: " << expected << endl;
+
+        if (is_same<T, bool>()) {
+            cout << "  - Actual: " << (actual ? "true" : "false") << endl;
+            cout << "  - Expected: " << (expected ? "true" : "false") << endl;
+        } else if (is_same<T, char>()) {
+            cout << "  - Actual: " << '\'' << actual << '\'' << endl;
+            cout << "  - Expected: " << '\'' << expected << '\'' << endl;
+        } else if (is_same<T, char*>() || 
+                   is_same<T, const char*>() ||
+                   is_same<T, char* const>() ||
+                   is_same<T, const char* const>() ||
+                   is_same<T, string>()) {
+            cout << "  - Actual: " << '"' << actual << '"' << endl;
+            cout << "  - Expected: " << '"' << expected << '"' << endl;
+        } else {
+            cout << "  - Actual: " << actual << endl;
+            cout << "  - Expected: " << expected << endl;
+        }
     }
     TOTAL_TESTS++;
 }
