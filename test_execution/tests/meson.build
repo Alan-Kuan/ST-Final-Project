@@ -10,3 +10,4 @@ test_deps = [
 subdir('ScenarioManager')
 subdir('TaskManager')
 subdir('cppbdd')
+subdir('expect')
