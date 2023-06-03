@@ -74,11 +74,11 @@ void init(void) {
         When("{{ when.fmt }}",
 ##          if when.type == "void"
             [&](void) {
-                // TODO: setup
+                // TODO: action
             }
 ##          else
             [&]({{ when.type }} x) {
-                // TODO: setup
+                // TODO: action
             }, vector<{{ when.type }}> {
 ##              for case in when.cases
 ##              if when.type == "std::string"
@@ -96,11 +96,11 @@ void init(void) {
         And("{{ when.fmt }}",
 ##          if when.type == "void"
             [&](void) {
-                // TODO: setup
+                // TODO: action
             }
 ##          else
             [&]({{ when.type }} x) {
-                // TODO: setup
+                // TODO: action
             }, vector<{{ when.type }}> {
 ##              for case in when.cases
 ##              if when.type == "std::string"
@@ -121,11 +121,11 @@ void init(void) {
         Then("{{ then.fmt }}",
 ##          if then.type == "void"
             [&](void) {
-                // TODO: setup
+                // TODO: assertion
             }
 ##          else
             [&]({{ then.type }} x) {
-                // TODO: setup
+                // TODO: assertion
             }, vector<{{ then.type }}> {
 ##              for case in then.cases
 ##              if then.type == "std::string"
@@ -143,11 +143,11 @@ void init(void) {
         And("{{ then.fmt }}",
 ##          if then.type == "void"
             [&](void) {
-                // TODO: setup
+                // TODO: assertion
             }
 ##          else
             [&]({{ then.type }} x) {
-                // TODO: setup
+                // TODO: assertion
             }, vector<{{ then.type }}> {
 ##              for case in then.cases
 ##              if then.type == "std::string"
