@@ -36,7 +36,7 @@ void And(const char* const msg, CallableTask::Callable callback) {
     internal::scenario_manager.AddTaskToCurrStmtManager(task);
 }
 
-void runTests(void) {
+void RunTests(void) {
     internal::scenario_manager.RunAll();
 }
 

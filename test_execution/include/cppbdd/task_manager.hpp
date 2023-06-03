@@ -92,7 +92,7 @@ public:
             break;
         case TaskName::kGiven:
             std::cout << std::endl;
-            // fall through
+            [[fallthrough]];
         case TaskName::kWhen:
         case TaskName::kThen:
         case TaskName::kAnd:

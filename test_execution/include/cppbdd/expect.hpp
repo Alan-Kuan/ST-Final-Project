@@ -85,6 +85,14 @@ void ExpectGreaterThanOrEqual(T lhs, T rhs) {
     internal::ShowExpectation(">=", lhs, rhs);
 }
 
+// NOTE: C-string comparison should not compare the pointers directly
+void ExpectEqual(const char* lhs, const char* rhs);
+void ExpectNotEqual(const char* lhs, const char* rhs);
+void ExpectLessThan(const char* lhs, const char* rhs);
+void ExpectLessThanOrEqual(const char* lhs, const char* rhs);
+void ExpectGreaterThan(const char* lhs, const char* rhs);
+void ExpectGreaterThanOrEqual(const char* lhs, const char* rhs);
+
 }  // namespace cppbdd
 
 #endif  // CPPBDD_EXPECT_HPP_

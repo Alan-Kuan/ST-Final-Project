@@ -1,8 +1,8 @@
 BUILD = build
 
-.PHONY: all clean
+.PHONY: all build_code config test clean
 
-all: config build_code
+all: build_code
 
 build_code:
 	meson compile -C $(BUILD)
@@ -14,4 +14,4 @@ test:
 	meson test -C $(BUILD)
 
 clean:
-	rm -rf $(BUILD)
+	meson compile -C $(BUILD) --clean
