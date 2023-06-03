@@ -5,8 +5,7 @@ subprojects/*
 !subprojects/*.wrap
 !subprojects/inja
 
-examples/*
-!examples/*.cpp
-!examples/Makefile
-!examples/meson.build
-!examples/run.sh
+examples/tests/*
+!examples/tests/*.cpp
+!examples/tests/Makefile
+!examples/tests/run.sh
