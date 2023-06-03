@@ -7,6 +7,7 @@ subdir('src')
 
 # Dependencies
 yaml_dep = dependency('yaml-cpp', required : true)
+inja_dep = inja.get_variable('inja_dep')
 
 # Executable
 exe = executable(
@@ -14,5 +15,5 @@ exe = executable(
   sources,
   install : true,
   include_directories : inc,
-  dependencies : [yaml_dep]
+  dependencies : [yaml_dep, inja_dep]
 )

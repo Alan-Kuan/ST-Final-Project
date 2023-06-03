@@ -5,6 +5,7 @@ project('CPPBDD', 'cpp',
                      'buildtype=debugoptimized'])
 
 gtest = subproject('gtest')
+inja = subproject('inja')
 
 subdir('test_execution')
 subdir('translator')

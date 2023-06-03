@@ -1,14 +1,7 @@
 #pragma once
 
 #include <string>
-#include <variant>
 
-enum value_type {
-    Bool,
-    Char,
-    Int,
-    Double,
-    String,
-};
-
-std::string value_type_str(value_type t);
+const std::string spec_template =
+#include "./spec.cpp.inc"
+    ;
