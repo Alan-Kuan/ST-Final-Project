@@ -1,0 +1,29 @@
+title: Basic methods of a linked list
+
+user_story:
+  - As a library user,
+  - I want to insert and pop elements from the linked list properly,
+  - so that I can ensure the quality of my program.
+
+scenarios:
+  - scenario: Inserting new element at the end of the list should increase the length of the list
+    given: an int linked list with length {int}
+    when: inserting {int} at the end of the list
+    then:
+      - the length of it should be {int}
+      - the last element of it should be {int}
+    cases:
+      - given: 1
+        when: 5
+        then: [2, 5]
+      - given: 0
+        when: -1
+        then: [1, -1]
+
+  - scenario: Attempting to pop elements from a linked list should decrease its length
+    given: an int linked list with legnth {int}
+    when: attempting to pop the last element of the list
+    then: the length of it should be {int}
+    cases:
+      - given: 1
+        then: 0

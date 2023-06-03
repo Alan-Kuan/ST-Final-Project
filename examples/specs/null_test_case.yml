@@ -1,0 +1,17 @@
+title: Null Test Case
+user_story:
+  - As the framework developer,
+  - I want to show you an example that some statement in the middle requires no argument,
+  - So I wrote this spec file.
+
+scenarios:
+  - scenario: a statement in the middle requires no argument
+    given: nothing
+    when: doing nothing
+    then:
+      - "x = {int}"
+      - "1 = 1"
+      - "y = {bool}"
+    cases:
+      - then: [0, null, false]
+      - then: [1, null, true]

@@ -9,3 +9,7 @@ examples/tests/*
 !examples/tests/*.cpp
 !examples/tests/Makefile
 !examples/tests/run.sh
+
+examples/specs/*
+!examples/specs/*.yml
+!examples/specs/run.sh

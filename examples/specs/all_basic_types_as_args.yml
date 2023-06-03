@@ -1,0 +1,19 @@
+title: All Basic Types as Arguments
+user_story:
+  - As the framework developer,
+  - I want to show you an example of all basic types used as arguments,
+  - So I wrote this spec file.
+
+scenarios:
+  - scenario: given all supported types
+    given:
+      - a boolean {bool}
+      - a character {char}
+      - an integer {int}
+      - a double {double}
+      - a string {std::string}
+    when: doing nothing
+    then: nothing will happen
+    cases:
+      - given: [true, 'x', 0, 3.14, ""]
+      - given: [false, 'y', 1, 1.0, "hello, world"]
