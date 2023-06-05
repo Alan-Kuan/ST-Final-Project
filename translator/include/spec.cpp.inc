@@ -17,7 +17,11 @@ void init(void) {
     Title("{{ title }}");
     UserStory(
 ##      for story in user_story
+##      if loop.is_last
+        "{{ story }}"
+##      else
         "{{ story }}",
+##      endif
 ##      endfor
     );
 ##  for scenario in scenarios
