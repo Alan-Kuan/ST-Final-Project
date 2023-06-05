@@ -1,4 +1,5 @@
 BUILD = build
+SETUP_FLAGS = -Db_sanitize=address -Db_lundef=false
 
 .PHONY: all build_code config test clean
 
@@ -8,7 +9,7 @@ build_code:
 	meson compile -C $(BUILD)
 
 config:
-	[ ! -d "$(BUILD)" ] && meson setup $(BUILD) || meson setup --reconfigure $(BUILD)
+	[ ! -d "$(BUILD)" ] && meson setup $(SETUP_FLAGS) $(BUILD) || meson setup --reconfigure $(SETUP_FLAGS) $(BUILD)
 
 test:
 	meson test -C $(BUILD)
