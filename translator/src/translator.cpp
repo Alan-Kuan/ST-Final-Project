@@ -15,6 +15,7 @@
 #include <inja/inja.hpp>
 #include <iostream>
 #include <optional>
+#include <regex>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -73,6 +74,7 @@ std::unordered_map<std::string, std::vector<std::optional<std::string>>> parse_c
     return case_map;
 }
 
+// only 0 ~ 1 argument is allowed
 inja::json parse_fmt_with_type(YAML::Node& n) {
     inja::json data;
     if (!n.IsScalar()) {
@@ -80,18 +82,20 @@ inja::json parse_fmt_with_type(YAML::Node& n) {
         exit(1);
     }
     std::string val_str = n.as<std::string>();
-    char fmt_buf[1024], type_buf[128];
-    sscanf(val_str.c_str(), "%[^{]{%[^}]}", fmt_buf, type_buf);
-    std::string fmt(fmt_buf), type(type_buf);
-    if (fmt.length() == val_str.length()) {
-        type = "void";
-        data["fmt"] = fmt;
-        data["type"] = type;
+    std::regex rgx("\\{(.*)\\}");
+    std::smatch matches;
+    std::string type, fmt;
+    if (std::regex_search(val_str, matches, rgx)) {
+        // if the regex matches, the capture group must have captured something,
+        // even an empty string counts
+        type = matches[1];  // value of capture group
+        fmt = val_str.erase(matches.position(1), matches[1].length());
     } else {
-        fmt += "{}";
-        data["fmt"] = fmt;
-        data["type"] = type;
+        type = "void";
+        fmt = val_str;
     }
+    data["type"] = type;
+    data["fmt"] = fmt;
     return data;
 }
 
