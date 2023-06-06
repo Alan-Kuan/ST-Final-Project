@@ -1,5 +1,7 @@
 # cppbdd
-This is a team final project for the Software Testing class, developed by @smb374 and me. We utilized TDD (Test-Driven Development) to create a BDD (Behavior-Driven Development) Framework using C++. We found the idea of testing the project on its own to be enjoyable, so we enthusiastically delved into its development.
+This is a team final project for the Software Testing class, developed by [@smb374](https://github.com/smb374) and [me](https://github.com/Alan-Kuan).
+We utilized TDD (Test-Driven Development) to create a BDD (Behavior-Driven Development) Framework using C++.
+We found the idea of testing the project on its own to be enjoyable, so we enthusiastically delved into its development.
 
 ## Build
 We provided a containerized environment for easily building the project.
