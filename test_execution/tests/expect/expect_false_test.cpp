@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TEST(Expect, ExpectFalse_Passed) {
+TEST(Expect, ExpectFalse_False) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectFalse(false);
     string output = ::testing::internal::GetCapturedStdout();
@@ -11,7 +11,7 @@ TEST(Expect, ExpectFalse_Passed) {
     EXPECT_EQ(output, "  - Passed!\n");
 }
 
-TEST(Expect, ExpectFalse_Failed) {
+TEST(Expect, ExpectFalse_True) {
     ::testing::internal::CaptureStdout();
     cppbdd::ExpectFalse(true);
     string output = ::testing::internal::GetCapturedStdout();
